@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asset Management - Elevator School</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'system-ui', '-apple-system', 'sans-serif'],
+                    },
+                    colors: {
+                        dark: {
+                            950: '#060a12',
+                            900: '#0a0e17',
+                            800: '#0f1523',
+                            700: '#151d2e',
+                            600: '#1a2438',
+                            500: '#222e44',
+                        },
+                        accent: {
+                            green: '#00e676',
+                            blue: '#2962ff',
+                            purple: '#7c3aed',
+                            gold: '#ffc107',
+                            red: '#ff1744',
+                            cyan: '#00bcd4',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            overflow-x: hidden;
+        }
+
+        body {
+            background: #0a0e17;
+            color: #e0e0e0;
+            font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+            line-height: 1.6;
+            letter-spacing: 0.3px;
+        }
+
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #0f1523;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #222e44;
+            border-radius: 3px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #2a3a54;
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #2962ff, #7c3aed, #00e676);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-glow {
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            border-radius: 50%;
+            filter: blur(150px);
+            opacity: 0.18;
+            pointer-events: none;
+        }
+
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+
+        .card-hover:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .fade-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .fade-left {
+            opacity: 0;
+            transform: translateX(-30px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-left.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .fade-right {
+            opacity: 0;
+            transform: translateX(30px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-right.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .nav-link {
+            position: relative;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #2962ff, #7c3aed);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        h1 {
+            font-size: clamp(2.75rem, 5vw, 4rem);
+            line-height: 1.4;
+            letter-spacing: -0.5px;
+            font-weight: 800;
+            margin-bottom: 1.25rem;
+        }
+
+        h2 {
+            line-height: 1.3;
+            letter-spacing: -0.3px;
+            font-weight: 700;
+        }
+
+        h3 {
+            line-height: 1.4;
+            letter-spacing: 0px;
+            font-weight: 700;
+        }
+
+        h4 {
+            line-height: 1.4;
+            font-weight: 600;
+        }
+
+        p {
+            line-height: 1.7;
+            margin-bottom: 1rem;
+        }
+
+        ul, ol {
+            line-height: 1.8;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        .modal-hidden {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="sticky top-0 z-50 bg-dark-900/95 backdrop-blur-xl border-b border-dark-500/50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <!-- Logo -->
+                <div class="flex items-center gap-3">
+                    <div
+                        class="w-10 h-10 bg-gradient-to-br from-accent-blue to-accent-purple rounded-xl flex items-center justify-center shadow-lg shadow-accent-blue/20">
+                        <i data-lucide="arrow-up" class="w-5 h-5 text-white"></i>
+                    </div>
+                    <div>
+                        <span class="text-xl font-bold text-white tracking-tight">Elevator<span
+                                class="gradient-text">School</span></span>
+                    </div>
+                </div>
+                <nav class="hidden md:flex items-center gap-1">
+                    <a href="elevator.html#home" class="nav-link px-4 py-2 rounded-lg text-sm font-medium text-white hover:bg-dark-600 transition">Home</a>
+                    <a href="programs.html" class="nav-link px-4 py-2 rounded-lg text-sm font-medium text-gray-400 hover:text-white hover:bg-dark-600 transition">Programs</a>
+                    <a href="about.html" class="nav-link px-4 py-2 rounded-lg text-sm font-medium text-gray-400 hover:text-white hover:bg-dark-600 transition">About</a>
+                    <a href="assets.html" class="nav-link px-4 py-2 rounded-lg text-sm font-medium text-gray-400 hover:text-white hover:bg-dark-600 transition">Asset Management</a>
+                    <a href="blog.html" class="nav-link px-4 py-2 rounded-lg text-sm font-medium text-gray-400 hover:text-white hover:bg-dark-600 transition">Blog</a>
+                    <a href="elevator.html#contact" class="nav-link px-4 py-2 rounded-lg text-sm font-medium text-gray-400 hover:text-white hover:bg-dark-600 transition">Contact</a>
+                </nav>
+                <div class="flex items-center gap-3">
+                    <a href="elevator.html#contact" class="hidden sm:inline-flex items-center gap-2 bg-gradient-to-r from-accent-blue to-accent-purple text-white px-5 py-2.5 rounded-xl text-sm font-semibold hover:shadow-lg hover:shadow-accent-blue/20 transition-all active:scale-95">Enroll Now<i data-lucide="arrow-right" class="w-4 h-4"></i></a>
+                    <button class="md:hidden p-2 rounded-lg hover:bg-dark-600 transition" onclick="toggleMobileMenu()">
+                        <i data-lucide="menu" class="w-6 h-6 text-white" id="menuIcon"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="fixed inset-0 z-50 md:hidden pointer-events-none" id="mobileMenuOverlay">
+        <div class="absolute inset-0 bg-black/60 opacity-0 transition-opacity" id="mobileMenuBg" onclick="toggleMobileMenu()"></div>
+        <div class="mobile-menu absolute right-0 top-0 bottom-0 w-72 bg-dark-800 border-l border-dark-500 p-6 pt-20 pointer-events-auto" id="mobileMenuPanel">
+            <button class="absolute top-5 right-5 p-2 rounded-lg hover:bg-dark-600 transition" onclick="toggleMobileMenu()">
+                <i data-lucide="x" class="w-5 h-5 text-gray-400"></i>
+            </button>
+            <div class="flex flex-col gap-1">
+                <a href="elevator.html#home" class="px-4 py-3 rounded-lg text-white font-medium hover:bg-dark-600 transition" onclick="toggleMobileMenu()">Home</a>
+                <a href="programs.html" class="px-4 py-3 rounded-lg text-gray-400 font-medium hover:text-white hover:bg-dark-600 transition" onclick="toggleMobileMenu()">Programs</a>
+                <a href="about.html" class="px-4 py-3 rounded-lg text-gray-400 font-medium hover:text-white hover:bg-dark-600 transition" onclick="toggleMobileMenu()">About</a>
+                <a href="assets.html" class="px-4 py-3 rounded-lg text-gray-400 font-medium hover:text-white hover:bg-dark-600 transition" onclick="toggleMobileMenu()">Asset Management</a>
+                <a href="blog.html" class="px-4 py-3 rounded-lg text-gray-400 font-medium hover:text-white hover:bg-dark-600 transition" onclick="toggleMobileMenu()">Blog</a>
+                <a href="elevator.html#contact" class="px-4 py-3 rounded-lg text-gray-400 font-medium hover:text-white hover:bg-dark-600 transition" onclick="toggleMobileMenu()">Contact</a>
+                <a href="elevator.html#contact" class="mt-4 text-center bg-gradient-to-r from-accent-blue to-accent-purple text-white px-5 py-3 rounded-xl font-semibold" onclick="toggleMobileMenu()">Enroll Now</a>
+            </div>
+        </div>
+    </div>
+
+    <section class="relative min-h-[85vh] flex items-center overflow-hidden pt-16">
+        <div class="hero-glow bg-accent-gold" style="top: -140px; right: -120px;"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-[1.1fr_0.9fr] gap-16 items-center">
+                <div class="fade-up">
+                    <span class="text-xs font-semibold uppercase tracking-widest text-accent-gold mb-4 block">Asset Management</span>
+                    <h1 class="text-4xl sm:text-5xl font-black text-white leading-tight mb-6">Institutional asset management that protects capital and expands portfolio opportunity.</h1>
+                    <p class="text-gray-400 max-w-3xl leading-relaxed mb-8">Elevator School of Trade & Technology combines market intelligence, regulatory discipline, and active portfolio oversight to deliver structured wealth solutions across commodities, private equity, and global yield strategies.</p>
+                    <div class="flex flex-wrap gap-4">
+                        <a href="elevator.html#contact" class="inline-flex items-center gap-2 bg-gradient-to-r from-accent-blue to-accent-purple text-white px-6 py-4 rounded-full font-semibold hover:shadow-xl hover:shadow-accent-blue/25 transition-all">Book a Consultation <i data-lucide="arrow-right" class="w-4 h-4"></i></a>
+                        <a href="blog.html" class="inline-flex items-center gap-2 border border-dark-500 text-gray-200 px-6 py-4 rounded-full hover:border-accent-blue transition-all">Read Market Insights</a>
+                    </div>
+                </div>
+                <div class="rounded-[2rem] overflow-hidden border border-dark-500 bg-dark-800 shadow-2xl shadow-blue-500/5 fade-left">
+                    <img src="forex.jpg" alt="Asset Management" class="w-full h-full object-cover min-h-[520px]">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-24 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12 fade-up">
+                <span class="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-4 block">Portfolio Metrics</span>
+                <h2 class="text-3xl sm:text-4xl font-black text-white mb-4">Performance anchored in strategy, discipline and transparency.</h2>
+            </div>
+            <div class="grid lg:grid-cols-3 gap-6">
+                <div class="gradient-border card-hover p-8 bg-dark-800 rounded-3xl fade-up" style="transition-delay: 0.05s;">
+                    <div class="text-sm uppercase tracking-widest text-gray-500 mb-4">Portfolio Value</div>
+                    <div class="text-5xl font-black text-white mb-2">$4.2M+</div>
+                    <p class="text-gray-400">Assets under advisory across trading, education capital funds, and private market holdings.</p>
+                </div>
+                <div class="gradient-border card-hover p-8 bg-dark-800 rounded-3xl fade-up" style="transition-delay: 0.15s;">
+                    <div class="text-sm uppercase tracking-widest text-gray-500 mb-4">Global Commodities</div>
+                    <div class="text-5xl font-black text-white mb-2">24.5%</div>
+                    <p class="text-gray-400">Positioning for resilient returns in energy, metals, and FX-linked market opportunities.</p>
+                </div>
+                <div class="gradient-border card-hover p-8 bg-dark-800 rounded-3xl fade-up" style="transition-delay: 0.25s;">
+                    <div class="text-sm uppercase tracking-widest text-gray-500 mb-4">Private Equity</div>
+                    <div class="text-5xl font-black text-white mb-2">18.2%</div>
+                    <p class="text-gray-400">Selective holdings in high-growth fintech, data infrastructure, and trading operations.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-24 relative overflow-hidden">
+        <div class="hero-glow bg-accent-blue" style="top: 30%; left: -220px;"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-2 gap-16 items-start">
+                <div class="fade-up">
+                    <h2 class="text-3xl sm:text-4xl font-black text-white mb-5">What we provide for investors and partners.</h2>
+                    <p class="text-gray-400 mb-8">We structure capital with the same discipline we teach traders. Each mandate is tailored to your risk profile, liquidity needs and long-term growth objectives.</p>
+                    <div class="space-y-4 text-gray-400 text-sm">
+                        <div class="flex items-start gap-3">
+                            <div class="w-10 h-10 rounded-xl bg-accent-blue/10 flex items-center justify-center mt-1">
+                                <i data-lucide="shield" class="w-5 h-5 text-accent-blue"></i>
+                            </div>
+                            <div>
+                                <div class="text-white font-semibold">Scalable Capital Management</div>
+                                <div class="text-gray-500 text-xs">Structured exposure for high-net-worth and institutional investors.</div>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <div class="w-10 h-10 rounded-xl bg-accent-green/10 flex items-center justify-center mt-1">
+                                <i data-lucide="layers" class="w-5 h-5 text-accent-green"></i>
+                            </div>
+                            <div>
+                                <div class="text-white font-semibold">Multi-Asset Portfolio Strategy</div>
+                                <div class="text-gray-500 text-xs">Diversified allocations across commodities, equities, and innovation sectors.</div>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <div class="w-10 h-10 rounded-xl bg-accent-purple/10 flex items-center justify-center mt-1">
+                                <i data-lucide="award" class="w-5 h-5 text-accent-purple"></i>
+                            </div>
+                            <div>
+                                <div class="text-white font-semibold">Regulatory-aligned Oversight</div>
+                                <div class="text-gray-500 text-xs">Registered and compliant financial services provision in Nigeria.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="fade-left">
+                    <div class="gradient-border p-8 rounded-3xl bg-dark-900 border border-dark-500">
+                        <h3 class="text-2xl font-bold text-white mb-5">Elite Services Suite</h3>
+                        <div class="space-y-4 text-gray-400 text-sm">
+                            <div class="flex items-start gap-3">
+                                <i data-lucide="check" class="w-4 h-4 mt-1 text-accent-green"></i>
+                                Portfolio Management & Strategic Allocation
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <i data-lucide="check" class="w-4 h-4 mt-1 text-accent-green"></i>
+                                Investment Advisory & Macro Risk Assessment
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <i data-lucide="check" class="w-4 h-4 mt-1 text-accent-green"></i>
+                                Commodity Hedging and Compliance Consulting
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <i data-lucide="check" class="w-4 h-4 mt-1 text-accent-green"></i>
+                                Monthly Performance Reporting & Capital Preservation Analysis
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-24 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-2 gap-12 items-center bg-dark-900 border border-dark-500 rounded-[2rem] p-8">
+                <div class="fade-up">
+                    <h3 class="text-3xl font-black text-white mb-4">Leadership built on capital stewardship and market education.</h3>
+                    <p class="text-gray-400 mb-6">Under the direction of Chairman David Achom, ESTT has grown into an authorised Nigerian financial services provider. Our asset management team works hand-in-hand with trade education leaders to align portfolios with real market signals.</p>
+                    <ul class="space-y-3 text-gray-400 text-sm">
+                        <li class="flex gap-3 items-start"><span class="mt-1 text-accent-green">•</span> Manage $4M+ in assets under advisory and management.</li>
+                        <li class="flex gap-3 items-start"><span class="mt-1 text-accent-green">•</span> Deliver cross-border capital strategy with local regulatory compliance.</li>
+                        <li class="flex gap-3 items-start"><span class="mt-1 text-accent-green">•</span> Provide discretionary mandates, capital protection, and growth planning.</li>
+                    </ul>
+                </div>
+                <div class="fade-left rounded-[2rem] overflow-hidden border border-dark-500 bg-dark-800 shadow-2xl shadow-blue-500/10">
+                    <img src="ladyforex.jpg" alt="David Achom" class="w-full h-full object-cover min-h-[420px]">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="rounded-[2rem] border border-dark-500 bg-dark-800 p-10 fade-up">
+                <h3 class="text-2xl font-black text-white mb-4">Regulatory Statement</h3>
+                <p class="text-gray-400 leading-relaxed">ESTT (Elevator School of Trade and Technology) is registered under the Laws of the Federal Republic of Nigeria. We are an authorized financial services provider and asset management firm. All investment activities are subject to market risks. Historical performance is not indicative of future results. $4M+ AUM refers to total group assets under advisory and management as of Q4 2023.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-12 border-t border-dark-500">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-gray-400">
+            <div class="flex flex-col gap-8">
+                <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
+                    <p class="text-sm">© 2026 Elevator School. All rights reserved.</p>
+                    <div class="flex items-center gap-4 text-sm text-gray-500">
+                        <span class="flex items-center gap-1"><i data-lucide="shield-check" class="w-4 h-4 text-accent-green"></i> ACCET Accredited</span>
+                        <span class="flex items-center gap-1"><i data-lucide="badge-check" class="w-4 h-4 text-accent-blue"></i> State Licensed</span>
+                    </div>
+                </div>
+                <div class="flex flex-wrap items-center gap-3">
+                    <a href="https://www.instagram.com/iamdavidachom/?hl=en" target="_blank" rel="noopener" class="inline-flex items-center gap-2 rounded-full border border-dark-500 bg-dark-700 px-4 py-2 text-sm text-gray-300 hover:border-accent-pink hover:text-white transition">
+                        <img src="IG.png" alt="Instagram" class="w-4 h-4" />
+                        Instagram
+                    </a>
+                    <a href="https://x.com/iamdavidachom" target="_blank" rel="noopener" class="inline-flex items-center gap-2 rounded-full border border-dark-500 bg-dark-700 px-4 py-2 text-sm text-gray-300 hover:border-accent-blue hover:text-white transition">
+                        <img src="X.png" alt="X" class="w-4 h-4" />
+                        X
+                    </a>
+                    <a href="https://ng.linkedin.com/in/iamdavidachom" target="_blank" rel="noopener" class="inline-flex items-center gap-2 rounded-full border border-dark-500 bg-dark-700 px-4 py-2 text-sm text-gray-300 hover:border-accent-blue hover:text-white transition">
+                        <img src="Linkedin.png" alt="LinkedIn" class="w-4 h-4" />
+                        LinkedIn
+                    </a>
+                    <a href="https://www.youtube.com/channel/UCqyW9E5vf_zBdNvhYBWWbVg/videos" target="_blank" rel="noopener" class="inline-flex items-center gap-2 rounded-full border border-dark-500 bg-dark-700 px-4 py-2 text-sm text-gray-300 hover:border-accent-red hover:text-white transition">
+                        <img src="Youtube.png" alt="YouTube" class="w-4 h-4" />
+                        YouTube
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+        let mobileMenuOpen = false;
+        function toggleMobileMenu() {
+            mobileMenuOpen = !mobileMenuOpen;
+            const overlay = document.getElementById('mobileMenuOverlay');
+            const bg = document.getElementById('mobileMenuBg');
+            const panel = document.getElementById('mobileMenuPanel');
+            if (mobileMenuOpen) {
+                overlay.classList.remove('pointer-events-none');
+                bg.classList.remove('opacity-0');
+                bg.classList.add('opacity-100');
+                panel.classList.add('open');
+                document.body.style.overflow = 'hidden';
+            } else {
+                overlay.classList.add('pointer-events-none');
+                bg.classList.add('opacity-0');
+                bg.classList.remove('opacity-100');
+                panel.classList.remove('open');
+                document.body.style.overflow = '';
+            }
+        }
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+        document.querySelectorAll('.fade-up, .fade-left, .fade-right').forEach(el => observer.observe(el));
+    </script>
+</body>
+
+</html>

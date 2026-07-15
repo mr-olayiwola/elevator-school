@@ -1,0 +1,1659 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elevator School - Forex Trading & Tech Programs</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        dark: {
+                            950: '#060a12',
+                            900: '#0a0e17',
+                            800: '#0f1523',
+                            700: '#151d2e',
+                            600: '#1a2438',
+                            500: '#222e44',
+                        },
+                        accent: {
+                            green: '#00e676',
+                            blue: '#2962ff',
+                            purple: '#7c3aed',
+                            gold: '#ffc107',
+                            red: '#ff1744',
+                            cyan: '#00bcd4',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            overflow-x: hidden;
+        }
+
+        body {
+            background: #0a0e17;
+            color: #e0e0e0;
+            font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+            line-height: 1.6;
+            letter-spacing: 0.3px;
+        }
+
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #0f1523;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #222e44;
+            border-radius: 3px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #2a3a54;
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #2962ff, #7c3aed, #00e676);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .gradient-border {
+            position: relative;
+            background: #0f1523;
+            border-radius: 1rem;
+        }
+
+        .gradient-border::before {
+            content: '';
+            position: absolute;
+            inset: -1px;
+            border-radius: 1rem;
+            padding: 1px;
+            background: linear-gradient(135deg, rgba(41, 98, 255, 0.4), rgba(124, 58, 237, 0.2), rgba(0, 230, 118, 0.1));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+        }
+
+        .hero-glow {
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            border-radius: 50%;
+            filter: blur(150px);
+            opacity: 0.15;
+            pointer-events: none;
+        }
+
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+
+        .card-hover:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .fade-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .fade-left {
+            opacity: 0;
+            transform: translateX(-30px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-left.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .fade-right {
+            opacity: 0;
+            transform: translateX(30px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-right.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .pulse-ring {
+            animation: pulseRing 2s infinite;
+        }
+
+        @keyframes pulseRing {
+            0% {
+                box-shadow: 0 0 0 0 rgba(41, 98, 255, 0.4);
+            }
+
+            70% {
+                box-shadow: 0 0 0 15px rgba(41, 98, 255, 0);
+            }
+
+            100% {
+                box-shadow: 0 0 0 0 rgba(41, 98, 255, 0);
+            }
+        }
+
+        .float {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-15px);
+            }
+        }
+
+        .ticker-scroll {
+            animation: tickerScroll 40s linear infinite;
+        }
+
+        @keyframes tickerScroll {
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        .counter-animate {
+            display: inline-block;
+        }
+
+        .nav-link {
+            position: relative;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #2962ff, #7c3aed);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        h1 {
+            font-size: clamp(2.75rem, 5vw, 4rem);
+            line-height: 1.4;
+            letter-spacing: -0.5px;
+            font-weight: 800;
+            margin-bottom: 1.25rem;
+        }
+
+        h2 {
+            line-height: 1.3;
+            letter-spacing: -0.3px;
+            font-weight: 700;
+        }
+
+        h3 {
+            line-height: 1.4;
+            letter-spacing: 0px;
+            font-weight: 700;
+        }
+
+        h4 {
+            line-height: 1.4;
+            font-weight: 600;
+        }
+
+        p {
+            line-height: 1.7;
+            margin-bottom: 1rem;
+        }
+
+        ul, ol {
+            line-height: 1.8;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        .progress-bar {
+            background: linear-gradient(90deg, #2962ff, #7c3aed, #00e676);
+            background-size: 200% 100%;
+            animation: shimmer 2s linear infinite;
+        }
+
+        @keyframes shimmer {
+            0% {
+                background-position: 200% 0;
+            }
+
+            100% {
+                background-position: -200% 0;
+            }
+        }
+
+        .mobile-menu {
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .mobile-menu.open {
+            transform: translateX(0);
+        }
+
+        input:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #2962ff !important;
+            box-shadow: 0 0 0 3px rgba(41, 98, 255, 0.15);
+        }
+
+        @keyframes countUp {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+
+<body class="min-h-screen">
+
+    <!-- Top Info Ticker -->
+    <div class="bg-dark-800 border-b border-dark-500/50 overflow-hidden h-9 flex items-center">
+        <div class="ticker-scroll flex items-center gap-10 whitespace-nowrap px-4 text-xs">
+            <span class="flex items-center gap-2"><span class="text-accent-green">●</span> <span
+                    class="text-gray-400">Enrollment Open</span> <span class="text-white font-semibold">2025 Spring
+                    Semester</span></span>
+            <span class="flex items-center gap-2"><span class="text-accent-blue">●</span> <span
+                    class="text-gray-400">New Program</span> <span class="text-white font-semibold">Forex Trading Mastery
+                    Course</span></span>
+            <span class="flex items-center gap-2"><span class="text-accent-purple">●</span> <span
+                    class="text-gray-400">Tech Bootcamp</span> <span class="text-white font-semibold">Full Stack Development
+                    Starting April</span></span>
+            <span class="flex items-center gap-2"><span class="text-accent-gold">●</span> <span
+                    class="text-gray-400">Trading Live Room</span> <span class="text-white font-semibold">Daily Market Analysis —
+                    Join Live</span></span>
+            <span class="flex items-center gap-2"><span class="text-accent-cyan">●</span> <span
+                    class="text-gray-400">Mentorship</span> <span class="text-white font-semibold">1-on-1 Trading & Tech Coaching
+                    Available</span></span>
+            <!-- Duplicate for seamless scroll -->
+            <span class="flex items-center gap-2"><span class="text-accent-green">●</span> <span
+                    class="text-gray-400">Enrollment Open</span> <span class="text-white font-semibold">2025 Spring
+                    Semester</span></span>
+            <span class="flex items-center gap-2"><span class="text-accent-blue">●</span> <span
+                    class="text-gray-400">New Program</span> <span class="text-white font-semibold">Forex Trading Mastery
+                    Course</span></span>
+            <span class="flex items-center gap-2"><span class="text-accent-purple">●</span> <span
+                    class="text-gray-400">Tech Bootcamp</span> <span class="text-white font-semibold">Full Stack Development
+                    Starting April</span></span>
+            <span class="flex items-center gap-2"><span class="text-accent-gold">●</span> <span
+                    class="text-gray-400">Trading Live Room</span> <span class="text-white font-semibold">Daily Market Analysis —
+                    Join Live</span></span>
+            <span class="flex items-center gap-2"><span class="text-accent-cyan">●</span> <span
+                    class="text-gray-400">Mentorship</span> <span class="text-white font-semibold">1-on-1 Trading & Tech Coaching
+                    Available</span></span>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <header class="sticky top-0 z-50 bg-dark-900/95 backdrop-blur-xl border-b border-dark-500/50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <!-- Logo -->
+                <div class="flex items-center gap-3">
+                    <div
+                        class="w-10 h-10 bg-gradient-to-br from-accent-blue to-accent-purple rounded-xl flex items-center justify-center shadow-lg shadow-accent-blue/20">
+                        <i data-lucide="arrow-up" class="w-5 h-5 text-white"></i>
+                    </div>
+                    <div>
+                        <span class="text-xl font-bold text-white tracking-tight">Elevator<span
+                                class="gradient-text">School</span></span>
+                    </div>
+                </div>
+
+                <!-- Desktop Nav -->
+                <nav class="hidden md:flex items-center gap-1">
+                    <a href="elevator.html#home"
+                        class="nav-link px-4 py-2 rounded-lg text-sm font-medium text-white hover:bg-dark-600 transition">Home</a>
+                    <a href="programs.html"
+                        class="nav-link px-4 py-2 rounded-lg text-sm font-medium text-gray-400 hover:text-white hover:bg-dark-600 transition">Programs</a>
+                    <a href="about.html"
+                        class="nav-link px-4 py-2 rounded-lg text-sm font-medium text-gray-400 hover:text-white hover:bg-dark-600 transition">About</a>
+                    <a href="assets.html"
+                        class="nav-link px-4 py-2 rounded-lg text-sm font-medium text-gray-400 hover:text-white hover:bg-dark-600 transition">Asset Management</a>
+                    <a href="blog.html"
+                        class="nav-link px-4 py-2 rounded-lg text-sm font-medium text-gray-400 hover:text-white hover:bg-dark-600 transition">Blog</a>
+                    <a href="elevator.html#contact"
+                        class="nav-link px-4 py-2 rounded-lg text-sm font-medium text-gray-400 hover:text-white hover:bg-dark-600 transition">Contact</a>
+                </nav>
+
+                <!-- CTA + Mobile -->
+                <div class="flex items-center gap-3">
+                    <a href="#contact"
+                        class="hidden sm:inline-flex items-center gap-2 bg-gradient-to-r from-accent-blue to-accent-purple text-white px-5 py-2.5 rounded-xl text-sm font-semibold hover:shadow-lg hover:shadow-accent-blue/25 transition-all active:scale-95">
+                        Enroll Now
+                        <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                    </a>
+                    <button class="md:hidden p-2 rounded-lg hover:bg-dark-600 transition" onclick="toggleMobileMenu()">
+                        <i data-lucide="menu" class="w-6 h-6 text-white" id="menuIcon"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div class="fixed inset-0 z-50 md:hidden pointer-events-none" id="mobileMenuOverlay">
+        <div class="absolute inset-0 bg-black/60 opacity-0 transition-opacity" id="mobileMenuBg"
+            onclick="toggleMobileMenu()"></div>
+        <div class="mobile-menu absolute right-0 top-0 bottom-0 w-72 bg-dark-800 border-l border-dark-500 p-6 pt-20 pointer-events-auto"
+            id="mobileMenuPanel">
+            <button class="absolute top-5 right-5 p-2 rounded-lg hover:bg-dark-600 transition"
+                onclick="toggleMobileMenu()">
+                <i data-lucide="x" class="w-5 h-5 text-gray-400"></i>
+            </button>
+            <div class="flex flex-col gap-1">
+                <a href="elevator.html#home" class="px-4 py-3 rounded-lg text-white font-medium hover:bg-dark-600 transition"
+                    onclick="toggleMobileMenu()">Home</a>
+                <a href="programs.html"
+                    class="px-4 py-3 rounded-lg text-gray-400 font-medium hover:text-white hover:bg-dark-600 transition"
+                    onclick="toggleMobileMenu()">Programs</a>
+                <a href="assets.html"
+                    class="px-4 py-3 rounded-lg text-gray-400 font-medium hover:text-white hover:bg-dark-600 transition"
+                    onclick="toggleMobileMenu()">Asset Management</a>
+                <a href="blog.html"
+                    class="px-4 py-3 rounded-lg text-gray-400 font-medium hover:text-white hover:bg-dark-600 transition"
+                    onclick="toggleMobileMenu()">Blog</a>
+                <a href="about.html"
+                    class="px-4 py-3 rounded-lg text-gray-400 font-medium hover:text-white hover:bg-dark-600 transition"
+                    onclick="toggleMobileMenu()">About</a>
+                <a href="elevator.html#contact"
+                    class="px-4 py-3 rounded-lg text-gray-400 font-medium hover:text-white hover:bg-dark-600 transition"
+                    onclick="toggleMobileMenu()">Contact</a>
+                <a href="elevator.html#contact"
+                    class="mt-4 text-center bg-gradient-to-r from-accent-blue to-accent-purple text-white px-5 py-3 rounded-xl font-semibold"
+                    onclick="toggleMobileMenu()">Enroll Now</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section id="home" class="relative min-h-[90vh] flex items-center overflow-hidden">
+        <!-- Background Effects -->
+        <div class="hero-glow bg-accent-blue" style="top: -200px; left: -100px;"></div>
+        <div class="hero-glow bg-accent-purple" style="bottom: -200px; right: -100px;"></div>
+        <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(41,98,255,0.05),transparent_70%)]">
+        </div>
+
+        <!-- Grid Pattern -->
+        <div class="absolute inset-0 opacity-[0.03]"
+            style="background-image: linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px); background-size: 60px 60px;">
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full relative z-10">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <!-- Hero Content -->
+                <div class="fade-up">
+                    <div class="flex items-center gap-2 mb-6">
+                        <span
+                            class="px-3 py-1 rounded-full bg-accent-green/10 border border-accent-green/20 text-accent-green text-xs font-semibold flex items-center gap-1.5">
+                            <span class="w-1.5 h-1.5 bg-accent-green rounded-full animate-pulse"></span>
+                            Enroll Now — Forex, Tech, BSc, MBA & PhD
+                        </span>
+                    </div>
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black text-white leading-tight mb-6">
+                        Trade & Build<br>
+                        <span class="gradient-text">Your Future</span>
+                    </h1>
+                    <p class="text-lg text-gray-400 mb-8 max-w-lg leading-relaxed">
+                        Elevator School combines Forex trading expertise with cutting-edge tech education. Master the markets and build profitable applications through intensive, mentor-led programs. <span class="text-white font-semibold">Elevate</span> your income and career.
+                    </p>
+                    <div class="flex flex-wrap gap-4 mb-10">
+                        <a href="#contact"
+                            class="inline-flex items-center gap-2 bg-gradient-to-r from-accent-blue to-accent-purple text-white px-8 py-4 rounded-xl font-bold text-base hover:shadow-xl hover:shadow-accent-blue/25 transition-all active:scale-95">
+                            Start Your Journey
+                            <i data-lucide="arrow-up-right" class="w-5 h-5"></i>
+                        </a>
+                        <a href="programs.html"
+                            class="inline-flex items-center gap-2 bg-dark-600 text-white px-8 py-4 rounded-xl font-semibold text-base border border-dark-500 hover:border-accent-blue/50 hover:bg-dark-500 transition-all active:scale-95">
+                            <i data-lucide="play-circle" class="w-5 h-5 text-accent-blue"></i>
+                            Explore Programs
+                        </a>
+                    </div>
+                    <!-- Trust Indicators -->
+                    <div class="flex flex-wrap items-center gap-6 text-xs">
+                        <div class="flex items-center gap-2">
+                            <div class="flex -space-x-2">
+                                <div class="w-8 h-8 rounded-full border-2 border-dark-900 bg-accent-blue flex items-center justify-center text-xs font-bold text-white">A</div>
+                                <div class="w-8 h-8 rounded-full border-2 border-dark-900 bg-accent-purple flex items-center justify-center text-xs font-bold text-white">B</div>
+                                <div class="w-8 h-8 rounded-full border-2 border-dark-900 bg-accent-green flex items-center justify-center text-xs font-bold text-white">C</div>
+                                <div class="w-8 h-8 rounded-full border-2 border-dark-900 bg-accent-gold flex items-center justify-center text-xs font-bold text-dark-950">D</div>
+                            </div>
+                            <span class="text-gray-400"><span class="text-white font-semibold">5,000+</span>
+                                Students Worldwide</span>
+                        </div>
+                        <div class="flex items-center gap-1">
+                            <div class="flex">
+                                <i data-lucide="star" class="w-3.5 h-3.5 text-accent-gold fill-accent-gold"></i>
+                                <i data-lucide="star" class="w-3.5 h-3.5 text-accent-gold fill-accent-gold"></i>
+                                <i data-lucide="star" class="w-3.5 h-3.5 text-accent-gold fill-accent-gold"></i>
+                                <i data-lucide="star" class="w-3.5 h-3.5 text-accent-gold fill-accent-gold"></i>
+                                <i data-lucide="star" class="w-3.5 h-3.5 text-accent-gold fill-accent-gold"></i>
+                            </div>
+                            <span class="text-gray-400"><span class="text-white font-semibold">4.9</span> Rating</span>
+                        </div>
+                        <div class="flex items-center gap-1.5">
+                            <i data-lucide="badge-check" class="w-4 h-4 text-accent-green"></i>
+                            <span class="text-gray-400">Licensed & Accredited</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hero Visual -->
+                <div class="relative hidden lg:block fade-right">
+                    <div class="relative float">
+                        <!-- Main Card -->
+                        <div class="gradient-border p-8 rounded-2xl">
+                            <div class="flex items-center gap-3 mb-6">
+                                <div
+                                    class="w-12 h-12 rounded-xl bg-gradient-to-br from-accent-green/20 to-accent-green/5 flex items-center justify-center">
+                                    <i data-lucide="trending-up" class="w-6 h-6 text-accent-green"></i>
+                                </div>
+                                <div>
+                                    <div class="text-white font-bold text-lg">Income Growth</div>
+                                    <div class="text-accent-green text-sm font-semibold">+150% avg. income increase</div>
+                                </div>
+                            </div>
+                            <!-- Progress Bars -->
+                            <div class="space-y-4">
+                                <div>
+                                    <div class="flex justify-between text-xs mb-1.5">
+                                        <span class="text-gray-400">Trading Profitability</span>
+                                        <span class="text-white font-semibold">87%</span>
+                                    </div>
+                                    <div class="h-2 bg-dark-500 rounded-full overflow-hidden">
+                                        <div class="h-full rounded-full progress-bar" style="width: 87%"></div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="flex justify-between text-xs mb-1.5">
+                                        <span class="text-gray-400">Tech Job Placement</span>
+                                        <span class="text-white font-semibold">94%</span>
+                                    </div>
+                                    <div class="h-2 bg-dark-500 rounded-full overflow-hidden">
+                                        <div class="h-full rounded-full progress-bar" style="width: 94%"></div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="flex justify-between text-xs mb-1.5">
+                                        <span class="text-gray-400">Student Satisfaction</span>
+                                        <span class="text-white font-semibold">99%</span>
+                                    </div>
+                                    <div class="h-2 bg-dark-500 rounded-full overflow-hidden">
+                                        <div class="h-full rounded-full progress-bar" style="width: 99%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Floating Mini Cards -->
+                        <div class="absolute -top-6 -right-6 bg-dark-700 border border-dark-500 rounded-xl p-4 shadow-2xl"
+                            style="animation: float 5s ease-in-out infinite; animation-delay: -2s;">
+                            <div class="flex items-center gap-2">
+                                <div class="w-8 h-8 rounded-lg bg-accent-gold/20 flex items-center justify-center">
+                                    <i data-lucide="trending-up" class="w-4 h-4 text-accent-gold"></i>
+                                </div>
+                                <div>
+                                    <div class="text-white text-xs font-bold">Profitable!</div>
+                                    <div class="text-gray-500 text-[10px]">Forex Trader — +$15K/mo</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="absolute -bottom-4 -left-6 bg-dark-700 border border-dark-500 rounded-xl p-4 shadow-2xl"
+                            style="animation: float 6s ease-in-out infinite; animation-delay: -4s;">
+                            <div class="flex items-center gap-2">
+                                <div class="w-8 h-8 rounded-lg bg-accent-blue/20 flex items-center justify-center">
+                                    <i data-lucide="award" class="w-4 h-4 text-accent-blue"></i>
+                                </div>
+                                <div>
+                                    <div class="text-white text-xs font-bold">Hired & Trading</div>
+                                    <div class="text-gray-500 text-[10px]">Tech + Forex Income</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Bar -->
+    <section class="relative z-10 -mt-8">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="gradient-border p-1 rounded-2xl">
+                <div class="bg-dark-800 rounded-xl grid grid-cols-2 md:grid-cols-4 divide-x divide-dark-500">
+                    <div class="p-6 text-center fade-up">
+                        <div class="text-3xl font-black text-white mb-1" data-count="5000">0</div>
+                        <div class="text-xs text-gray-500 font-medium uppercase tracking-wider">Active Students</div>
+                    </div>
+                    <div class="p-6 text-center fade-up" style="transition-delay: 0.1s;">
+                        <div class="text-3xl font-black text-accent-green mb-1" data-count="87">0</div>
+                        <div class="text-xs text-gray-500 font-medium uppercase tracking-wider">Profitable Traders %</div>
+                    </div>
+                    <div class="p-6 text-center fade-up" style="transition-delay: 0.2s;">
+                        <div class="text-3xl font-black text-white mb-1" data-count="50">0</div>
+                        <div class="text-xs text-gray-500 font-medium uppercase tracking-wider">Partner Firms</div>
+                    </div>
+                    <div class="p-6 text-center fade-up" style="transition-delay: 0.3s;">
+                        <div class="text-3xl font-black text-accent-blue mb-1" data-count="18">0</div>
+                        <div class="text-xs text-gray-500 font-medium uppercase tracking-wider">Total Programs</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Programs Preview -->
+    <section class="py-24 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12 fade-up">
+                <span class="text-xs font-semibold uppercase tracking-widest text-accent-blue mb-4 block">Programs</span>
+                <h2 class="text-3xl sm:text-4xl font-black text-white mb-4">Deep learning paths for traders & tech builders</h2>
+                <p class="text-gray-400 max-w-2xl mx-auto">Visit our dedicated Programs page for full course details, pricing, and enrollment guidance for every track.</p>
+            </div>
+
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="gradient-border card-hover fade-up" style="transition-delay: 0.05s;">
+                    <div class="p-6 relative z-10">
+                        <div class="w-14 h-14 rounded-2xl bg-accent-gold/10 flex items-center justify-center mb-5">
+                            <i data-lucide="trending-up" class="w-7 h-7 text-accent-gold"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mt-3 mb-2">Forex Trading Fundamentals</h3>
+                        <p class="text-sm text-gray-400 mb-5 leading-relaxed">A practical introduction to currency markets, risk management, and trading psychology for future income generators.</p>
+                        <div class="flex items-center justify-between pt-4 border-t border-dark-500">
+                            <div>
+                                <span class="text-xs text-gray-500">Start</span>
+                                <div class="text-xl font-bold text-white">$2,999</div>
+                            </div>
+                            <a href="programs.html" class="text-accent-gold font-semibold hover:text-accent-blue">View Course</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="gradient-border card-hover fade-up" style="transition-delay: 0.15s;">
+                    <div class="p-6 relative z-10">
+                        <div class="w-14 h-14 rounded-2xl bg-accent-blue/10 flex items-center justify-center mb-5">
+                            <i data-lucide="code-2" class="w-7 h-7 text-accent-blue"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mt-3 mb-2">Full Stack Development</h3>
+                        <p class="text-sm text-gray-400 mb-5 leading-relaxed">Build production apps with React, Node.js, and databases while learning to deploy systems at scale.</p>
+                        <div class="flex items-center justify-between pt-4 border-t border-dark-500">
+                            <div>
+                                <span class="text-xs text-gray-500">Start</span>
+                                <div class="text-xl font-bold text-white">$4,999</div>
+                            </div>
+                            <a href="programs.html" class="text-accent-blue font-semibold hover:text-accent-purple">View Course</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="gradient-border card-hover fade-up" style="transition-delay: 0.25s;">
+                    <div class="p-6 relative z-10">
+                        <div class="w-14 h-14 rounded-2xl bg-accent-red/10 flex items-center justify-center mb-5">
+                            <i data-lucide="split-square-vertical" class="w-7 h-7 text-accent-red"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mt-3 mb-2">Forex + Tech Dual Track</h3>
+                        <p class="text-sm text-gray-400 mb-5 leading-relaxed">Combine trading mastery with software engineering for a powerful dual skill set that scales income and innovation.</p>
+                        <div class="flex items-center justify-between pt-4 border-t border-dark-500">
+                            <div>
+                                <span class="text-xs text-gray-500">Start</span>
+                                <div class="text-xl font-bold text-white">$7,999</div>
+                            </div>
+                            <a href="programs.html" class="text-accent-red font-semibold hover:text-accent-blue">View Course</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center mt-10 fade-up">
+                <a href="programs.html" class="inline-flex items-center gap-2 bg-gradient-to-r from-accent-blue to-accent-purple text-white px-8 py-4 rounded-full font-semibold hover:shadow-xl hover:shadow-accent-blue/25 transition-all">Explore Programs <i data-lucide="arrow-right" class="w-4 h-4"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Academic Pathways -->
+    <section class="py-24 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 fade-up">
+                <span class="text-xs font-semibold uppercase tracking-widest text-accent-purple mb-4 block">Academic Pathways</span>
+                <h2 class="text-3xl sm:text-4xl font-black text-white mb-4">BSc, MBA & PhD Programs Designed for Leaders</h2>
+                <p class="text-gray-400 max-w-3xl mx-auto">Elevator School blends academic rigor with market-ready trading and technology training. Choose the pathway that fits your ambition and earn credentials that matter.</p>
+            </div>
+
+            <div class="grid lg:grid-cols-3 gap-6">
+                <div class="gradient-border card-hover p-6 fade-up" style="transition-delay: 0.05s;">
+                    <span class="text-[10px] font-bold uppercase tracking-widest text-accent-blue bg-accent-blue/10 px-3 py-1 rounded-full">BSc</span>
+                    <h3 class="text-2xl font-bold text-white mt-5 mb-3">BSc in Applied Economics</h3>
+                    <p class="text-gray-400 text-sm mb-5 leading-relaxed">A practical undergraduate track for learners who want to master money, markets, and software. Build trading systems, data tools, and applied business projects.</p>
+                    <ul class="space-y-3 text-sm text-gray-400 mb-6">
+                        <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 text-accent-green mt-1"></i> Economics, finance, and programming</li>
+                        <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 text-accent-green mt-1"></i> Live trading labs and coding sprints</li>
+                        <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 text-accent-green mt-1"></i> Industry-ready portfolio and degree credential</li>
+                    </ul>
+                    <div class="text-sm text-gray-500">Program length: 36 months</div>
+                </div>
+                <div class="gradient-border card-hover p-6 fade-up" style="transition-delay: 0.15s;">
+                    <span class="text-[10px] font-bold uppercase tracking-widest text-accent-green bg-accent-green/10 px-3 py-1 rounded-full">MBA</span>
+                    <h3 class="text-2xl font-bold text-white mt-5 mb-3">MBA in Risk & Strategy</h3>
+                    <p class="text-gray-400 text-sm mb-5 leading-relaxed">Designed for professionals ready to accelerate earnings in finance, tech, and leadership. Includes executive coaching, live markets, and capstone portfolio work.</p>
+                    <ul class="space-y-3 text-sm text-gray-400 mb-6">
+                        <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 text-accent-green mt-1"></i> Advanced risk management and product strategy</li>
+                        <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 text-accent-green mt-1"></i> CEO-level fintech, trading, and analytics labs</li>
+                        <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 text-accent-green mt-1"></i> Leadership, investment, and consulting skills</li>
+                    </ul>
+                    <div class="text-sm text-gray-500">Program length: 18 months</div>
+                </div>
+                <div class="gradient-border card-hover p-6 fade-up" style="transition-delay: 0.25s;">
+                    <span class="text-[10px] font-bold uppercase tracking-widest text-accent-gold bg-accent-gold/10 px-3 py-1 rounded-full">PhD</span>
+                    <h3 class="text-2xl font-bold text-white mt-5 mb-3">PhD in Finance & Innovation</h3>
+                    <p class="text-gray-400 text-sm mb-5 leading-relaxed">A flagship research track for market leaders, proprietary traders, and fintech founders. Focus on AI trading, systematic research, and financial innovation.</p>
+                    <ul class="space-y-3 text-sm text-gray-400 mb-6">
+                        <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 text-accent-green mt-1"></i> Research-driven trading systems and fintech ventures</li>
+                        <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 text-accent-green mt-1"></i> Dissertation support and publication mentoring</li>
+                        <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 text-accent-green mt-1"></i> Access to funded project partnerships</li>
+                    </ul>
+                    <div class="text-sm text-accent-gold font-semibold">Save 17% on all PhD programs</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Preview -->
+    <section class="py-24 relative overflow-hidden">
+        <div class="hero-glow bg-accent-purple" style="top: 50%; left: -200px; transform: translateY(-50%);"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                <div class="fade-left rounded-3xl overflow-hidden border border-dark-500 bg-dark-800 shadow-lg shadow-blue-500/5">
+                    <img src="david-achom.png" alt="David Achom"
+                        class="w-full h-full object-cover min-h-[420px]">
+                </div>
+
+                <div class="fade-right">
+                    <span class="text-xs font-semibold uppercase tracking-widest text-accent-purple mb-4 block">About Elevator School of Trade & Technology</span>
+                    <h2 class="text-3xl sm:text-4xl font-black text-white mb-6">Leadership, legacy, and a higher standard for trade education.</h2>
+                    <p class="text-gray-400 mb-6 leading-relaxed">Elevator School of Trade & Technology blends real market experience with academic rigor. Our programs are built to turn traders into portfolio leaders and technologists into business builders.</p>
+                    <p class="text-gray-400 mb-8 leading-relaxed">Under the direction of Chairman David Achom, ESTT has grown into an authorised financial services provider with strong asset management, fintech, and educational capabilities.</p>
+
+                    <div class="grid sm:grid-cols-2 gap-4 mb-8">
+                        <div class="flex items-start gap-3">
+                            <div class="w-10 h-10 rounded-xl bg-accent-blue/10 flex items-center justify-center">
+                                <i data-lucide="award" class="w-5 h-5 text-accent-blue"></i>
+                            </div>
+                            <div>
+                                <div class="text-white font-semibold text-sm">Chairman of the Board</div>
+                                <div class="text-gray-500 text-xs">Leading strategy, compliance and enterprise operations.</div>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <div class="w-10 h-10 rounded-xl bg-accent-green/10 flex items-center justify-center">
+                                <i data-lucide="shield-check" class="w-5 h-5 text-accent-green"></i>
+                            </div>
+                            <div>
+                                <div class="text-white font-semibold text-sm">$4M+ Assets Under Advisory</div>
+                                <div class="text-gray-500 text-xs">Managed across trade education and asset management as of Q4 2023.</div>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <div class="w-10 h-10 rounded-xl bg-accent-purple/10 flex items-center justify-center">
+                                <i data-lucide="globe" class="w-5 h-5 text-accent-purple"></i>
+                            </div>
+                            <div>
+                                <div class="text-white font-semibold text-sm">Registered in Nigeria</div>
+                                <div class="text-gray-500 text-xs">An authorised provider of financial services and market education.</div>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <div class="w-10 h-10 rounded-xl bg-accent-cyan/10 flex items-center justify-center">
+                                <i data-lucide="users" class="w-5 h-5 text-accent-cyan"></i>
+                            </div>
+                            <div>
+                                <div class="text-white font-semibold text-sm">Mentorship Ecosystem</div>
+                                <div class="text-gray-500 text-xs">Hands-on trading rooms, cohort support, and founder-led guidance.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="space-y-2 text-gray-400 mb-8">
+                        <p>ESTT is registered under the laws of the Federal Republic of Nigeria. We are an authorized financial services provider and asset management firm. All investment activities are subject to market risks.</p>
+                        <p>$4M+ AUM refers to total group assets under advisory and management as of Q4 2023.</p>
+                    </div>
+
+                    <a href="about.html" class="inline-flex items-center gap-2 bg-gradient-to-r from-accent-blue to-accent-purple text-white px-6 py-3 rounded-full font-semibold hover:shadow-xl hover:shadow-accent-blue/20 transition-all">Read the Full Story <i data-lucide="arrow-right" class="w-4 h-4"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="py-24 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 fade-up">
+                <span class="text-xs font-semibold uppercase tracking-widest text-accent-green mb-4 block">How It
+                    Works</span>
+                <h2 class="text-3xl sm:text-4xl font-black text-white mb-4">Your Path to <span
+                        class="gradient-text">Multiple Incomes</span></h2>
+                <p class="text-gray-400 max-w-2xl mx-auto">From application to profitability — a proven 4-step framework that builds lasting wealth through trading and tech.</p>
+            </div>
+
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="relative fade-up" style="transition-delay: 0.05s;">
+                    <div class="gradient-border p-6 text-center relative z-10 card-hover h-full">
+                        <div
+                            class="w-14 h-14 rounded-full bg-gradient-to-br from-accent-blue to-accent-purple flex items-center justify-center mx-auto mb-4 text-white font-black text-xl">
+                            1</div>
+                        <h3 class="text-white font-bold text-lg mb-2">Apply</h3>
+                        <p class="text-sm text-gray-400">Submit your application. No prior experience required — just
+                            ambition and commitment.</p>
+                    </div>
+                    <div class="hidden lg:block absolute top-1/2 -right-3 transform -translate-y-1/2 z-20">
+                        <i data-lucide="chevron-right" class="w-5 h-5 text-dark-500"></i>
+                    </div>
+                </div>
+
+                <div class="relative fade-up" style="transition-delay: 0.15s;">
+                    <div class="gradient-border p-6 text-center relative z-10 card-hover h-full">
+                        <div
+                            class="w-14 h-14 rounded-full bg-gradient-to-br from-accent-purple to-accent-green flex items-center justify-center mx-auto mb-4 text-white font-black text-xl">
+                            2</div>
+                        <h3 class="text-white font-bold text-lg mb-2">Learn & Practice</h3>
+                        <p class="text-sm text-gray-400">Intensive trading & coding curriculum with live market practice. Build real trading systems and applications daily.</p>
+                    </div>
+                    <div class="hidden lg:block absolute top-1/2 -right-3 transform -translate-y-1/2 z-20">
+                        <i data-lucide="chevron-right" class="w-5 h-5 text-dark-500"></i>
+                    </div>
+                </div>
+
+                <div class="relative fade-up" style="transition-delay: 0.25s;">
+                    <div class="gradient-border p-6 text-center relative z-10 card-hover h-full">
+                        <div
+                            class="w-14 h-14 rounded-full bg-gradient-to-br from-accent-green to-accent-gold flex items-center justify-center mx-auto mb-4 text-white font-black text-xl">
+                            3</div>
+                        <h3 class="text-white font-bold text-lg mb-2">Trade & Deploy</h3>
+                        <p class="text-sm text-gray-400">Launch live trading accounts and deploy working apps. Start generating income immediately.</p>
+                    </div>
+                    <div class="hidden lg:block absolute top-1/2 -right-3 transform -translate-y-1/2 z-20">
+                        <i data-lucide="chevron-right" class="w-5 h-5 text-dark-500"></i>
+                    </div>
+                </div>
+
+                <div class="fade-up" style="transition-delay: 0.35s;">
+                    <div class="gradient-border p-6 text-center relative z-10 card-hover h-full">
+                        <div
+                            class="w-14 h-14 rounded-full bg-gradient-to-br from-accent-gold to-accent-red flex items-center justify-center mx-auto mb-4 text-white font-black text-xl">
+                            4</div>
+                        <h3 class="text-white font-bold text-lg mb-2">Scale Income</h3>
+                        <p class="text-sm text-gray-400">Our community helps you scale from $5K to $20K+ monthly through multiple income streams.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Distinction Section -->
+    <section class="py-24 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 fade-up">
+                <span class="text-xs font-semibold uppercase tracking-widest text-accent-blue mb-4 block">Our Distinction</span>
+                <h2 class="text-3xl sm:text-4xl font-black text-white mb-4">Built on Integrity, <span class="gradient-text">Driven by Innovation</span></h2>
+                <p class="text-gray-400 max-w-3xl mx-auto">Elevator School of Trade & Technology combines accredited academic standards with market-first trading and tech programs. We give you practical systems, mentorship, and community backed by proven results.</p>
+            </div>
+
+            <div class="grid lg:grid-cols-3 gap-6">
+                <div class="gradient-border card-hover fade-up p-6 h-full flex flex-col justify-between" style="transition-delay: 0.05s;">
+                    <div class="flex items-start gap-4 mb-5">
+                        <div class="w-12 h-12 rounded-3xl bg-accent-blue/10 flex items-center justify-center text-accent-blue">
+                            <i data-lucide="award" class="w-6 h-6"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-white font-semibold text-lg mb-2">World-Class Faculty</h3>
+                            <p class="text-gray-400 text-sm">Learn from former fund managers, tech founders, and market practitioners who bring real trading and development experience to every session.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-3 text-gray-400 text-xs leading-relaxed">
+                        <i data-lucide="check-circle" class="w-4 h-4 text-accent-green mt-1"></i>
+                        Accredited online and Lagos-based programs with structured academic support.
+                    </div>
+                </div>
+                <div class="gradient-border card-hover fade-up p-6 h-full flex flex-col justify-between" style="transition-delay: 0.15s;">
+                    <div class="flex items-start gap-4 mb-5">
+                        <div class="w-12 h-12 rounded-3xl bg-accent-purple/10 flex items-center justify-center text-accent-purple">
+                            <i data-lucide="globe" class="w-6 h-6"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-white font-semibold text-lg mb-2">Global Learning Community</h3>
+                            <p class="text-gray-400 text-sm">Join learners from around the world in weekly cohort-based sessions, trading rooms, and tech build sprints.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-3 text-gray-400 text-xs leading-relaxed">
+                        <i data-lucide="check-circle" class="w-4 h-4 text-accent-green mt-1"></i>
+                        Access live sessions, mentorship, and community support across time zones.
+                    </div>
+                </div>
+                <div class="gradient-border card-hover fade-up p-6 h-full flex flex-col justify-between" style="transition-delay: 0.25s;">
+                    <div class="flex items-start gap-4 mb-5">
+                        <div class="w-12 h-12 rounded-3xl bg-accent-gold/10 flex items-center justify-center text-accent-gold">
+                            <i data-lucide="layers" class="w-6 h-6"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-white font-semibold text-lg mb-2">Multiple Income Pathways</h3>
+                            <p class="text-gray-400 text-sm">We train you to earn from live trading, software development, freelancing, and funded capital pathways.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-3 text-gray-400 text-xs leading-relaxed">
+                        <i data-lucide="check-circle" class="w-4 h-4 text-accent-green mt-1"></i>
+                        Build Forex skill, coding skill, and portfolio assets that generate recurring revenue.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Asset Management Preview -->
+    <section class="py-24 relative">
+        <div class="hero-glow bg-accent-gold" style="top: 35%; right: -170px; transform: translateY(-50%);"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-14 fade-up">
+                <span class="text-xs font-semibold uppercase tracking-widest text-accent-gold mb-4 block">Asset Management</span>
+                <h2 class="text-3xl sm:text-4xl font-black text-white mb-4">Bridge market education with premium financial stewardship.</h2>
+                <p class="text-gray-400 max-w-2xl mx-auto">Explore our authorised asset management solutions designed to protect capital, scale diversified portfolios, and align wealth growth with disciplined market strategy.</p>
+            </div>
+
+            <div class="grid lg:grid-cols-3 gap-6 mb-12">
+                <div class="gradient-border card-hover p-6 bg-dark-800 rounded-3xl fade-up" style="transition-delay: 0.05s;">
+                    <h3 class="text-5xl font-black text-white mb-3">$4M+</h3>
+                    <p class="text-sm text-gray-400">Assets under advisory and management as of Q4 2023</p>
+                </div>
+                <div class="gradient-border card-hover p-6 bg-dark-800 rounded-3xl fade-up" style="transition-delay: 0.15s;">
+                    <h3 class="text-5xl font-black text-white mb-3">Registered</h3>
+                    <p class="text-sm text-gray-400">Licensed financial services provider under Nigerian law</p>
+                </div>
+                <div class="gradient-border card-hover p-6 bg-dark-800 rounded-3xl fade-up" style="transition-delay: 0.25s;">
+                    <h3 class="text-5xl font-black text-white mb-3">Cross-Asset</h3>
+                    <p class="text-sm text-gray-400">Commodities, private equity, and structured yield portfolios</p>
+                </div>
+            </div>
+
+            <div class="grid lg:grid-cols-2 gap-8 items-start">
+                <div class="fade-up">
+                    <h3 class="text-2xl font-bold text-white mb-4">A preview of our capital services</h3>
+                    <p class="text-gray-400 mb-6">Our asset management practice extends Elevator School's trading insight into portfolio construction and risk governance. Clients gain direct access to experienced capital managers who understand both markets and the business of wealth preservation.</p>
+                    <div class="space-y-4 text-gray-400 text-sm">
+                        <div class="flex items-start gap-3">
+                            <div class="w-10 h-10 rounded-xl bg-accent-blue/10 flex items-center justify-center mt-1">
+                                <i data-lucide="shield" class="w-5 h-5 text-accent-blue"></i>
+                            </div>
+                            <div>
+                                <div class="text-white font-semibold">Risk-aware portfolio design</div>
+                                <div class="text-gray-500 text-xs">Structural asset protection for volatile markets.</div>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <div class="w-10 h-10 rounded-xl bg-accent-green/10 flex items-center justify-center mt-1">
+                                <i data-lucide="layers" class="w-5 h-5 text-accent-green"></i>
+                            </div>
+                            <div>
+                                <div class="text-white font-semibold">Multi-asset balance</div>
+                                <div class="text-gray-500 text-xs">Aligned strategies across FX, equities, and alternative capital.</div>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <div class="w-10 h-10 rounded-xl bg-accent-purple/10 flex items-center justify-center mt-1">
+                                <i data-lucide="award" class="w-5 h-5 text-accent-purple"></i>
+                            </div>
+                            <div>
+                                <div class="text-white font-semibold">Local regulatory assurance</div>
+                                <div class="text-gray-500 text-xs">Authorized and compliant under Nigerian financial services law.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="fade-left rounded-[2rem] overflow-hidden border border-dark-500 bg-dark-900 p-8">
+                    <div class="space-y-6">
+                        <div>
+                            <h3 class="text-xl font-bold text-white mb-3">Asset Management at a glance</h3>
+                            <p class="text-gray-400 text-sm leading-relaxed">From proprietary trading expertise to structured capital mandates, our asset management service is built for investors who seek a disciplined, market-driven approach.</p>
+                        </div>
+                        <div class="grid gap-4 text-sm text-gray-300">
+                            <div class="bg-dark-800 rounded-3xl p-5">
+                                <div class="font-semibold text-white">Dedicated advisory</div>
+                                <div class="text-gray-500 mt-1">Senior portfolio managers and market specialists.</div>
+                            </div>
+                            <div class="bg-dark-800 rounded-3xl p-5">
+                                <div class="font-semibold text-white">Performance transparency</div>
+                                <div class="text-gray-500 mt-1">Regular reporting and review for every mandate.</div>
+                            </div>
+                        </div>
+                        <a href="assets.html" class="inline-flex items-center justify-center gap-2 w-full bg-gradient-to-r from-accent-blue to-accent-purple text-white px-6 py-4 rounded-full font-semibold hover:shadow-xl hover:shadow-accent-blue/20 transition-all">Explore Asset Management<i data-lucide="arrow-right" class="w-4 h-4"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Success Stories -->
+    <section id="success" class="py-24 relative overflow-hidden">
+        <div class="hero-glow bg-accent-green" style="top: 50%; right: -200px; transform: translateY(-50%);"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 fade-up">
+                <span class="text-xs font-semibold uppercase tracking-widest text-accent-green mb-4 block">Success
+                    Stories</span>
+                <h2 class="text-3xl sm:text-4xl font-black text-white mb-4">From Zero to <span
+                        class="gradient-text">6-Figure Earners</span></h2>
+                <p class="text-gray-400 max-w-2xl mx-auto">Real people building wealth through Forex trading and tech. Real income streams. Real results.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-6">
+                <!-- Story 1 -->
+                <div class="gradient-border card-hover fade-up" style="transition-delay: 0.05s;">
+                    <div class="p-6 relative z-10">
+                        <div class="flex items-center gap-1 mb-4">
+                            <i data-lucide="star" class="w-4 h-4 text-accent-gold fill-accent-gold"></i>
+                            <i data-lucide="star" class="w-4 h-4 text-accent-gold fill-accent-gold"></i>
+                            <i data-lucide="star" class="w-4 h-4 text-accent-gold fill-accent-gold"></i>
+                            <i data-lucide="star" class="w-4 h-4 text-accent-gold fill-accent-gold"></i>
+                            <i data-lucide="star" class="w-4 h-4 text-accent-gold fill-accent-gold"></i>
+                        </div>
+                        <p class="text-gray-300 text-sm mb-6 leading-relaxed">"Started with $2K in my trading account while still working my warehouse job. 8 weeks of forex training + tech skills and now I'm making $12K/month trading part-time. The Elevator dual-track program literally saved my life."</p>
+                        <div class="flex items-center gap-3 pt-4 border-t border-dark-500">
+                            <div class="w-10 h-10 rounded-full bg-accent-blue flex items-center justify-center border-2 border-dark-500">
+                                <span class="text-sm font-bold text-white">MT</span>
+                            </div>
+                            <div>
+                                <div class="text-white font-semibold text-sm">Marcus Thompson</div>
+                                <div class="text-xs text-accent-gold font-medium">Full-Time Forex Trader</div>
+                            </div>
+                            <div class="ml-auto text-xs text-gray-500">Income: <span
+                                    class="text-accent-gold font-bold">$12K/mo</span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Story 2 -->
+                <div class="gradient-border card-hover fade-up" style="transition-delay: 0.15s;">
+                    <div class="p-6 relative z-10">
+                        <div class="flex items-center gap-1 mb-4">
+                            <i data-lucide="star" class="w-4 h-4 text-accent-gold fill-accent-gold"></i>
+                            <i data-lucide="star" class="w-4 h-4 text-accent-gold fill-accent-gold"></i>
+                            <i data-lucide="star" class="w-4 h-4 text-accent-gold fill-accent-gold"></i>
+                            <i data-lucide="star" class="w-4 h-4 text-accent-gold fill-accent-gold"></i>
+                            <i data-lucide="star" class="w-4 h-4 text-accent-gold fill-accent-gold"></i>
+                        </div>
+                        <p class="text-gray-300 text-sm mb-6 leading-relaxed">"The dual-track Forex + Full Stack program showed me how to build AI trading bots. I'm now earning $25K/month from algorithmic trading while building SaaS apps on the side. Best $7,999 I ever spent."</p>
+                        <div class="flex items-center gap-3 pt-4 border-t border-dark-500">
+                            <div class="w-10 h-10 rounded-full bg-accent-purple flex items-center justify-center border-2 border-dark-500">
+                                <span class="text-sm font-bold text-white">SR</span>
+                            </div>
+                            <div>
+                                <div class="text-white font-semibold text-sm">Sophia Rodriguez</div>
+                                <div class="text-xs text-accent-gold font-medium">Algo Trader + Developer</div>
+                            </div>
+                            <div class="ml-auto text-xs text-gray-500">Income: <span
+                                    class="text-accent-gold font-bold">$25K/mo</span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Story 3 -->
+                <div class="gradient-border card-hover fade-up" style="transition-delay: 0.25s;">
+                    <div class="p-6 relative z-10">
+                        <div class="flex items-center gap-1 mb-4">
+                            <i data-lucide="star" class="w-4 h-4 text-accent-gold fill-accent-gold"></i>
+                            <i data-lucide="star" class="w-4 h-4 text-accent-gold fill-accent-gold"></i>
+                            <i data-lucide="star" class="w-4 h-4 text-accent-gold fill-accent-gold"></i>
+                            <i data-lucide="star" class="w-4 h-4 text-accent-gold fill-accent-gold"></i>
+                            <i data-lucide="star" class="w-4 h-4 text-accent-gold fill-accent-gold"></i>
+                        </div>
+                        <p class="text-gray-300 text-sm mb-6 leading-relaxed">"Single mom with zero background in finance or tech. Elevator made it possible. Now I'm a full-stack developer earning $85K AND a profitable forex trader making $8K/month. I have the freedom and security I always wanted."</p>
+                        <div class="flex items-center gap-3 pt-4 border-t border-dark-500">
+                            <div class="w-10 h-10 rounded-full bg-accent-green flex items-center justify-center border-2 border-dark-500">
+                                <span class="text-sm font-bold text-dark-950">JW</span>
+                            </div>
+                            <div>
+                                <div class="text-white font-semibold text-sm">Jessica Williams</div>
+                                <div class="text-xs text-accent-green font-medium">Dev + Forex Trader</div>
+                            </div>
+                            <div class="ml-auto text-xs text-gray-500">Income: <span
+                                    class="text-accent-green font-bold">$93K/mo</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials / Reviews -->
+    <section id="testimonials" class="py-24 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 fade-up">
+                <span class="text-xs font-semibold uppercase tracking-widest text-accent-gold mb-4 block">Reviews</span>
+                <h2 class="text-3xl sm:text-4xl font-black text-white mb-4">Loved by <span
+                        class="gradient-text">Thousands</span></h2>
+                <p class="text-gray-400 max-w-2xl mx-auto">See what our community says about the Elevator experience.
+                </p>
+            </div>
+
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div class="bg-dark-800 border border-dark-500 rounded-xl p-5 card-hover fade-up"
+                    style="transition-delay: 0.05s;">
+                    <div class="flex items-center gap-1 mb-3">
+                        <i data-lucide="star" class="w-3.5 h-3.5 text-accent-gold fill-accent-gold"></i>
+                        <i data-lucide="star" class="w-3.5 h-3.5 text-accent-gold fill-accent-gold"></i>
+                        <i data-lucide="star" class="w-3.5 h-3.5 text-accent-gold fill-accent-gold"></i>
+                        <i data-lucide="star" class="w-3.5 h-3.5 text-accent-gold fill-accent-gold"></i>
+                        <i data-lucide="star" class="w-3.5 h-3.5 text-accent-gold fill-accent-gold"></i>
+                    </div>
+                    <p class="text-xs text-gray-400 mb-4 leading-relaxed">"Best investment I ever made. The ROI was
+                        insane — paid for itself in 2 months of my new salary."</p>
+                    <div class="flex items-center gap-2">
+                        <div
+                            class="w-7 h-7 rounded-full bg-accent-blue/20 flex items-center justify-center text-[10px] font-bold text-accent-blue">
+                            JK</div>
+                        <div class="text-white text-xs font-medium">James K.</div>
+                    </div>
+                </div>
+                <div class="bg-dark-800 border border-dark-500 rounded-xl p-5 card-hover fade-up"
+                    style="transition-delay: 0.1s;">
+                    <div class="flex items-center gap-1 mb-3">
+                        <i data-lucide="star" class="w-3.5 h-3.5 text-accent-gold fill-accent-gold"></i>
+                        <i data-lucide="star" class="w-3.5 h-3.5 text-accent-gold fill-accent-gold"></i>
+                        <i data-lucide="star" class="w-3.5 h-3.5 text-accent-gold fill-accent-gold"></i>
+                        <i data-lucide="star" class="w-3.5 h-3.5 text-accent-gold fill-accent-gold"></i>
+                        <i data-lucide="star" class="w-3.5 h-3.5 text-accent-gold fill-accent-gold"></i>
+                    </div>
+                    <p class="text-xs text-gray-400 mb-4 leading-relaxed">"The mentors genuinely care about your
+                        success. They stayed late, answered weekend DMs, and celebrated my offer."</p>
+                    <div class="flex items-center gap-2">
+                        <div
+                            class="w-7 h-7 rounded-full bg-accent-purple/20 flex items-center justify-center text-[10px] font-bold text-accent-purple">
+                            AT</div>
+                        <div class="text-white text-xs font-medium">Aisha T.</div>
+                    </div>
+                </div>
+                <div class="bg-dark-800 border border-dark-500 rounded-xl p-5 card-hover fade-up"
+                    style="transition-delay: 0.15s;">
+                    <div class="flex items-center gap-1 mb-3">
+                        <i data-lucide="star" class="w-3.5 h-3.5 text-accent-gold fill-accent-gold"></i>
+                        <i data-lucide="star" class="w-3.5 h-3.5 text-accent-gold fill-accent-gold"></i>
+                        <i data-lucide="star" class="w-3.5 h-3.5 text-accent-gold fill-accent-gold"></i>
+                        <i data-lucide="star" class="w-3.5 h-3.5 text-accent-gold fill-accent-gold"></i>
+                        <i data-lucide="star" class="w-3.5 h-3.5 text-accent-gold fill-accent-gold"></i>
+                    </div>
+                    <p class="text-xs text-gray-400 mb-4 leading-relaxed">"I tried 3 other bootcamps before Elevator.
+                        The difference? This one actually gets you hired."</p>
+                    <div class="flex items-center gap-2">
+                        <div
+                            class="w-7 h-7 rounded-full bg-accent-green/20 flex items-center justify-center text-[10px] font-bold text-accent-green">
+                            RL</div>
+                        <div class="text-white text-xs font-medium">Robert L.</div>
+                    </div>
+                </div>
+                <div class="bg-dark-800 border border-dark-500 rounded-xl p-5 card-hover fade-up"
+                    style="transition-delay: 0.2s;">
+                    <div class="flex items-center gap-1 mb-3">
+                        <i data-lucide="star" class="w-3.5 h-3.5 text-accent-gold fill-accent-gold"></i>
+                        <i data-lucide="star" class="w-3.5 h-3.5 text-accent-gold fill-accent-gold"></i>
+                        <i data-lucide="star" class="w-3.5 h-3.5 text-accent-gold fill-accent-gold"></i>
+                        <i data-lucide="star" class="w-3.5 h-3.5 text-accent-gold fill-accent-gold"></i>
+                        <i data-lucide="star" class="w-3.5 h-3.5 text-accent-gold fill-accent-gold"></i>
+                    </div>
+                    <p class="text-xs text-gray-400 mb-4 leading-relaxed">"From warehouse worker to cybersecurity
+                        analyst in 14 weeks. If I can do it, anyone can."</p>
+                    <div class="flex items-center gap-2">
+                        <div
+                            class="w-7 h-7 rounded-full bg-accent-gold/20 flex items-center justify-center text-[10px] font-bold text-accent-gold">
+                            DM</div>
+                        <div class="text-white text-xs font-medium">Derek M.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog Preview -->
+    <section class="py-24 relative">
+        <div class="hero-glow bg-accent-blue" style="top: -220px; left: 10%;"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 fade-up">
+                <span class="text-xs font-semibold uppercase tracking-widest text-accent-purple mb-4 block">Blog</span>
+                <h2 class="text-3xl sm:text-4xl font-black text-white mb-4">Latest Insights from Elevator School</h2>
+                <p class="text-gray-400 max-w-3xl mx-auto">Read our news, market commentary, and career advice on the dedicated blog page.</p>
+            </div>
+
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <article class="bg-dark-800 border border-dark-500 rounded-3xl p-6 card-hover fade-up">
+                    <span class="text-[10px] uppercase tracking-widest text-accent-blue bg-accent-blue/10 px-2 py-1 rounded-full">May 15, 2026</span>
+                    <h3 class="text-xl font-bold text-white mt-5 mb-3">INTRODUCING ELEVATOR: HERE ARE 5 ECONOMIC OPPORTUNITIES NIGERIANS CAN LEVERAGE IN 2026.</h3>
+                    <p class="text-gray-400 text-sm mb-6">Economic opportunities are not far-fetched. The Nigerian job market is changing and new skill sets are driving premium income.</p>
+                </article>
+                <article class="bg-dark-800 border border-dark-500 rounded-3xl p-6 card-hover fade-up" style="transition-delay: 0.05s;">
+                    <span class="text-[10px] uppercase tracking-widest text-accent-green bg-accent-green/10 px-2 py-1 rounded-full">April 28, 2026</span>
+                    <h3 class="text-xl font-bold text-white mt-5 mb-3">WHAT IS PRODUCT MARKETING AND WHY NIGERIAN PROFESSIONALS NEED IT NOW</h3>
+                    <p class="text-gray-400 text-sm mb-6">As much as your product or service is great, it will only succeed when the right market strategy meets customer demand.</p>
+                </article>
+                <article class="bg-dark-800 border border-dark-500 rounded-3xl p-6 card-hover fade-up" style="transition-delay: 0.1s;">
+                    <span class="text-[10px] uppercase tracking-widest text-accent-gold bg-accent-gold/10 px-2 py-1 rounded-full">April 21, 2026</span>
+                    <h3 class="text-xl font-bold text-white mt-5 mb-3">5 Ways to Make Q2 Count (And the Skills That Will Get You There)</h3>
+                    <p class="text-gray-400 text-sm mb-6">If you think Q2 is almost over, then you’re almost correct. Here are the skills that will make the next quarter count.</p>
+                </article>
+            </div>
+
+            <div class="text-center mt-10 fade-up">
+                <a href="blog.html" class="inline-flex items-center gap-2 bg-gradient-to-r from-accent-blue to-accent-purple text-white px-8 py-4 rounded-full font-semibold hover:shadow-xl hover:shadow-accent-blue/25 transition-all">Visit the Blog <i data-lucide="arrow-right" class="w-4 h-4"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Partners / Companies -->
+    <section class="py-16 border-y border-dark-500/50">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-10 fade-up">
+                <span class="text-xs text-gray-500 uppercase tracking-widest font-medium">Our Graduates Work At</span>
+            </div>
+            <div class="flex flex-wrap items-center justify-center gap-x-12 gap-y-6 fade-up">
+                <div class="text-2xl font-black text-gray-600 hover:text-gray-400 transition">Google</div>
+                <div class="text-2xl font-black text-gray-600 hover:text-gray-400 transition">Meta</div>
+                <div class="text-2xl font-black text-gray-600 hover:text-gray-400 transition">Amazon</div>
+                <div class="text-2xl font-black text-gray-600 hover:text-gray-400 transition">Microsoft</div>
+                <div class="text-2xl font-black text-gray-600 hover:text-gray-400 transition">Stripe</div>
+                <div class="text-2xl font-black text-gray-600 hover:text-gray-400 transition">Apple</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA / Contact Section -->
+    <section id="contact" class="py-24 relative overflow-hidden">
+        <div class="hero-glow bg-accent-blue" style="top: -300px; left: 50%; transform: translateX(-50%);"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-[1.1fr_0.9fr] gap-16">
+                <!-- Contact Details -->
+                <div class="fade-left space-y-8">
+                    <span class="text-xs font-semibold uppercase tracking-widest text-accent-blue mb-4 block">Contact Us</span>
+                    <div>
+                        <h2 class="text-3xl sm:text-4xl font-black text-white mb-4">Talk to Admissions or Partner with <span class="gradient-text">Elevator School</span></h2>
+                        <p class="text-gray-400 leading-relaxed">For course questions, cohort details, or enrollment guidance, our team is ready to help. We offer both Lagos-based physical sessions and virtual delivery for learners anywhere in the world.</p>
+                    </div>
+
+                    <div class="grid gap-4">
+                        <div class="gradient-border p-6 rounded-3xl bg-dark-800">
+                            <h3 class="text-white font-semibold text-lg mb-3">Course & Session Questions</h3>
+                            <p class="text-gray-400 text-sm mb-4">For information about curricula, weekly learning sessions, and live trading rooms.</p>
+                            <p class="text-sm text-gray-300"><span class="font-semibold">Email:</span> <a href="mailto:hello@elevatorschool.org" class="text-accent-blue hover:text-accent-purple transition">hello@elevatorschool.org</a></p>
+                        </div>
+                        <div class="gradient-border p-6 rounded-3xl bg-dark-800">
+                            <h3 class="text-white font-semibold text-lg mb-3">Structured Mentorship & Enrollment</h3>
+                            <p class="text-gray-400 text-sm mb-4">For individuals seeking guided pathways, mentorship packages, and funded trading support.</p>
+                            <p class="text-sm text-gray-300"><span class="font-semibold">Email:</span> <a href="mailto:hello@elevatorschool.org" class="text-accent-blue hover:text-accent-purple transition">hello@elevatorschool.org</a></p>
+                        </div>
+                        <div class="gradient-border p-6 rounded-3xl bg-dark-800">
+                            <h3 class="text-white font-semibold text-lg mb-3">Partnerships & Institutional Engagement</h3>
+                            <p class="text-gray-400 text-sm mb-4">For organizations, recruiters, or sponsors interested in collaborating with our trade and tech school.</p>
+                            <p class="text-sm text-gray-300"><span class="font-semibold">Email:</span> <a href="mailto:hello@elevatorschool.org" class="text-accent-blue hover:text-accent-purple transition">hello@elevatorschool.org</a></p>
+                        </div>
+                    </div>
+
+                    <div class="grid gap-4">
+                        <div class="rounded-3xl overflow-hidden border border-dark-500 bg-dark-900">
+                            <iframe class="w-full h-72" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3969.4416748879607!2d3.464197075023678!3d6.447676024246716!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x103bf7218f22cee5%3A0xd7f49d5c6d4efde6!2sLekki%20Phase%201%2C%20Lagos%2C%20Nigeria!5e0!3m2!1sen!2sus!4v1700000000000!5m2!1sen!2sus" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                        </div>
+                        <div class="rounded-3xl bg-dark-800 border border-dark-500 p-6">
+                            <h3 class="text-white font-semibold text-lg mb-3">Campus & Delivery</h3>
+                            <p class="text-gray-400 text-sm mb-2">Elevator School of Trade & Technology is headquartered in Lekki, Lagos, Nigeria.</p>
+                            <p class="text-gray-400 text-sm mb-4">We operate through two delivery modes: physical sessions in Lagos and virtual sessions globally. Confirmed enrollees receive exact venue details and access instructions.</p>
+                            <div class="flex flex-col gap-2 text-sm text-gray-300">
+                                <div class="flex items-center gap-2"><i data-lucide="map-pin" class="w-4 h-4 text-accent-blue"></i> Lekki, Lagos, Nigeria</div>
+                                <div class="flex items-center gap-2"><i data-lucide="smartphone" class="w-4 h-4 text-accent-blue"></i> WhatsApp: +234 810 123 4567</div>
+                                <div class="flex items-center gap-2"><i data-lucide="clock" class="w-4 h-4 text-accent-blue"></i> Response time: within 24 hours</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contact Form -->
+                <div class="fade-right">
+                    <div class="gradient-border rounded-3xl overflow-hidden bg-dark-900 border border-dark-500">
+                        <form class="p-8 relative z-10" id="contactForm" onsubmit="handleSubmit(event)">
+                            <div class="grid sm:grid-cols-2 gap-4 mb-4">
+                                <div>
+                                    <label class="text-xs text-gray-500 font-medium mb-1.5 block">First Name *</label>
+                                    <input type="text" required
+                                        class="w-full bg-dark-700 border border-dark-500 rounded-lg px-4 py-3 text-sm text-white placeholder-gray-600 transition"
+                                        placeholder="John" id="firstName">
+                                </div>
+                                <div>
+                                    <label class="text-xs text-gray-500 font-medium mb-1.5 block">Last Name *</label>
+                                    <input type="text" required
+                                        class="w-full bg-dark-700 border border-dark-500 rounded-lg px-4 py-3 text-sm text-white placeholder-gray-600 transition"
+                                        placeholder="Doe" id="lastName">
+                                </div>
+                            </div>
+                            <div class="mb-4">
+                                <label class="text-xs text-gray-500 font-medium mb-1.5 block">Email *</label>
+                                <input type="email" required
+                                    class="w-full bg-dark-700 border border-dark-500 rounded-lg px-4 py-3 text-sm text-white placeholder-gray-600 transition"
+                                    placeholder="john@example.com" id="email">
+                            </div>
+                            <div class="mb-4">
+                                <label class="text-xs text-gray-500 font-medium mb-1.5 block">Phone *</label>
+                                <input type="tel" required
+                                    class="w-full bg-dark-700 border border-dark-500 rounded-lg px-4 py-3 text-sm text-white placeholder-gray-600 transition"
+                                    placeholder="+234 810 123 4567" id="phone">
+                            </div>
+                            <div class="mb-4">
+                                <label class="text-xs text-gray-500 font-medium mb-1.5 block">Program *</label>
+                                <select required
+                                    class="w-full bg-dark-700 border border-dark-500 rounded-lg px-4 py-3 text-sm text-white transition appearance-none cursor-pointer"
+                                    id="program">
+                                    <option value="" class="text-gray-600">Select a program</option>
+                                    <option value="forex">Forex Trading Fundamentals</option>
+                                    <option value="advanced-forex">Advanced Forex & Crypto</option>
+                                    <option value="fullstack">Full Stack Development</option>
+                                    <option value="algo">Algorithmic Trading</option>
+                                    <option value="cloud">Cloud Engineering</option>
+                                    <option value="bsc">BSc Applied Economics</option>
+                                    <option value="mba">MBA Risk & Strategy</option>
+                                    <option value="phd">PhD Finance & Innovation</option>
+                                    <option value="dual">Forex + Tech Dual Track</option>
+                                </select>
+                            </div>
+                            <div class="mb-6">
+                                <label class="text-xs text-gray-500 font-medium mb-1.5 block">Message</label>
+                                <textarea rows="3"
+                                    class="w-full bg-dark-700 border border-dark-500 rounded-lg px-4 py-3 text-sm text-white placeholder-gray-600 transition resize-none"
+                                    placeholder="Tell us about your goals..." id="message"></textarea>
+                            </div>
+                            <button type="submit"
+                                class="w-full bg-gradient-to-r from-accent-blue to-accent-purple text-white py-3.5 rounded-xl font-bold text-sm hover:shadow-lg hover:shadow-accent-blue/25 transition-all active:scale-[0.98] flex items-center justify-center gap-2"
+                                id="submitBtn">
+                                <span>Submit Application</span>
+                                <i data-lucide="send" class="w-4 h-4"></i>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="py-24 relative">
+        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 fade-up">
+                <span class="text-xs font-semibold uppercase tracking-widest text-accent-cyan mb-4 block">FAQ</span>
+                <h2 class="text-3xl sm:text-4xl font-black text-white mb-4">Common <span
+                        class="gradient-text">Questions</span></h2>
+            </div>
+
+            <div class="space-y-3" id="faqContainer">
+                <div class="faq-item gradient-border fade-up" style="transition-delay: 0.05s;">
+                    <button class="w-full text-left p-5 relative z-10 flex items-center justify-between"
+                        onclick="toggleFaq(this)">
+                        <span class="text-white font-semibold text-sm pr-4">Do I need trading or coding experience?</span>
+                        <i data-lucide="chevron-down"
+                            class="w-5 h-5 text-gray-500 transition-transform flex-shrink-0 faq-icon"></i>
+                    </button>
+                    <div class="faq-answer hidden px-5 pb-5 relative z-10">
+                        <p class="text-sm text-gray-400 leading-relaxed">No! Both programs are designed for complete beginners. We start from risk management and technical analysis for trading, and fundamentals for coding. All you need is determination and capital to start trading ($500-$1K minimum).</p>
+                    </div>
+                </div>
+                <div class="faq-item gradient-border fade-up" style="transition-delay: 0.1s;">
+                    <button class="w-full text-left p-5 relative z-10 flex items-center justify-between"
+                        onclick="toggleFaq(this)">
+                        <span class="text-white font-semibold text-sm pr-4">How much profit can I make trading?</span>
+                        <i data-lucide="chevron-down"
+                            class="w-5 h-5 text-gray-500 transition-transform flex-shrink-0 faq-icon"></i>
+                    </button>
+                    <div class="faq-answer hidden px-5 pb-5 relative z-10">
+                        <p class="text-sm text-gray-400 leading-relaxed">Average students make 2-5% per month on their account ($500-$5K initial capital = $10-$250/month). Our graduates average $5K-$20K monthly after 6 months. Results vary based on capital, discipline, and market conditions.</p>
+                    </div>
+                </div>
+                <div class="faq-item gradient-border fade-up" style="transition-delay: 0.15s;">
+                    <button class="w-full text-left p-5 relative z-10 flex items-center justify-between"
+                        onclick="toggleFaq(this)">
+                        <span class="text-white font-semibold text-sm pr-4">How long are the programs?</span>
+                        <i data-lucide="chevron-down"
+                            class="w-5 h-5 text-gray-500 transition-transform flex-shrink-0 faq-icon"></i>
+                    </button>
+                    <div class="faq-answer hidden px-5 pb-5 relative z-10">
+                        <p class="text-sm text-gray-400 leading-relaxed">Forex programs: 8-12 weeks intensive. Tech programs: 10-16 weeks intensive. Dual-track (Forex + Tech): 20 weeks. All include lifetime access to trading room and community.</p>
+                    </div>
+                </div>
+                <div class="faq-item gradient-border fade-up" style="transition-delay: 0.2s;">
+                    <button class="w-full text-left p-5 relative z-10 flex items-center justify-between"
+                        onclick="toggleFaq(this)">
+                        <span class="text-white font-semibold text-sm pr-4">What financing options exist?</span>
+                        <i data-lucide="chevron-down"
+                            class="w-5 h-5 text-gray-500 transition-transform flex-shrink-0 faq-icon"></i>
+                    </button>
+                    <div class="faq-answer hidden px-5 pb-5 relative z-10">
+                        <p class="text-sm text-gray-400 leading-relaxed">Income Share Agreements (pay from trading profits or first job), installment plans, and scholarships available. For Forex: pay with 50% of first month's profits. For Tech: ISA or installments.</p>
+                    </div>
+                </div>
+                <div class="faq-item gradient-border fade-up" style="transition-delay: 0.25s;">
+                    <button class="w-full text-left p-5 relative z-10 flex items-center justify-between"
+                        onclick="toggleFaq(this)">
+                        <span class="text-white font-semibold text-sm pr-4">What if I don't become profitable?</span>
+                        <i data-lucide="chevron-down"
+                            class="w-5 h-5 text-gray-500 transition-transform flex-shrink-0 faq-icon"></i>
+                    </button>
+                    <div class="faq-answer hidden px-5 pb-5 relative z-10">
+                        <p class="text-sm text-gray-400 leading-relaxed">Full refund guarantee: If you're not profitable within 6 months (for trading) or employed within 180 days (for tech), you get your full tuition back. Our 87% profitability rate makes this rare, but we stand behind it.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark-800 border-t border-dark-500 pt-16 pb-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
+                <!-- Brand -->
+                <div>
+                    <div class="flex items-center gap-2 mb-4">
+                        <div
+                            class="w-9 h-9 bg-gradient-to-br from-accent-blue to-accent-purple rounded-xl flex items-center justify-center">
+                            <i data-lucide="arrow-up" class="w-4 h-4 text-white"></i>
+                        </div>
+                        <span class="text-lg font-bold text-white">Elevator<span
+                                class="gradient-text">School</span></span>
+                    </div>
+                    <p class="text-sm text-gray-500 mb-4 leading-relaxed">Master Forex trading and tech. Build multiple income streams. Achieve financial freedom in weeks, not years.</p>
+                    <div class="flex flex-wrap gap-2">
+                        <a href="https://www.instagram.com/iamdavidachom/?hl=en" target="_blank" rel="noopener" class="inline-flex items-center justify-center w-9 h-9 rounded-lg bg-dark-700 hover:bg-dark-600 transition" aria-label="Instagram">
+                            <img src="IG.png" alt="Instagram" class="w-4 h-4" />
+                        </a>
+                        <a href="https://x.com/iamdavidachom" target="_blank" rel="noopener" class="inline-flex items-center justify-center w-9 h-9 rounded-lg bg-dark-700 hover:bg-dark-600 transition" aria-label="X">
+                            <img src="X.png" alt="X" class="w-4 h-4" />
+                        </a>
+                        <a href="https://ng.linkedin.com/in/iamdavidachom" target="_blank" rel="noopener" class="inline-flex items-center justify-center w-9 h-9 rounded-lg bg-dark-700 hover:bg-dark-600 transition" aria-label="LinkedIn">
+                            <img src="Linkedin.png" alt="LinkedIn" class="w-4 h-4" />
+                        </a>
+                        <a href="https://www.youtube.com/channel/UCqyW9E5vf_zBdNvhYBWWbVg/videos" target="_blank" rel="noopener" class="inline-flex items-center justify-center w-9 h-9 rounded-lg bg-dark-700 hover:bg-dark-600 transition" aria-label="YouTube">
+                            <img src="Youtube.png" alt="YouTube" class="w-4 h-4" />
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Programs -->
+                <div>
+                    <h4 class="text-white font-semibold mb-4">Programs</h4>
+                    <ul class="space-y-2.5 text-sm">
+                        <li><a href="programs.html" class="text-gray-500 hover:text-white transition">Forex Trading Fundamentals</a></li>
+                        <li><a href="programs.html" class="text-gray-500 hover:text-white transition">Advanced Forex & Crypto</a></li>
+                        <li><a href="programs.html" class="text-gray-500 hover:text-white transition">Full Stack Development</a></li>
+                        <li><a href="programs.html" class="text-gray-500 hover:text-white transition">Algorithmic Trading</a>
+                        </li>
+                        <li><a href="programs.html" class="text-gray-500 hover:text-white transition">Cloud Engineering</a>
+                        </li>
+                        <li><a href="programs.html" class="text-gray-500 hover:text-white transition">Forex + Tech (Dual)</a></li>
+                    </ul>
+                </div>
+
+                <!-- Company -->
+                <div>
+                    <h4 class="text-white font-semibold mb-4">Company</h4>
+                    <ul class="space-y-2.5 text-sm">
+                        <li><a href="about.html" class="text-gray-500 hover:text-white transition">About Us</a></li>
+                        <li><a href="#success" class="text-gray-500 hover:text-white transition">Success Stories</a>
+                        </li>
+                        <li><a href="#" class="text-gray-500 hover:text-white transition">Trading Resources</a></li>
+                        <li><a href="blog.html" class="text-gray-500 hover:text-white transition">Blog</a></li>
+                        <li><a href="#contact" class="text-gray-500 hover:text-white transition">Contact</a></li>
+                    </ul>
+                </div>
+
+                <!-- Support -->
+                <div>
+                    <h4 class="text-white font-semibold mb-4">Support</h4>
+                    <ul class="space-y-2.5 text-sm">
+                        <li><a href="#" class="text-gray-500 hover:text-white transition">Help Center</a></li>
+                        <li><a href="#" class="text-gray-500 hover:text-white transition">Privacy Policy</a></li>
+                        <li><a href="#" class="text-gray-500 hover:text-white transition">Terms of Service</a></li>
+                        <li><a href="#" class="text-gray-500 hover:text-white transition">Refund Policy</a></li>
+                    </ul>
+                    <div class="mt-6 flex items-center gap-2 text-sm">
+                        <i data-lucide="mail" class="w-4 h-4 text-accent-blue"></i>
+                        <a href="mailto:hello@elevatorschool.org"
+                            class="text-gray-400 hover:text-white transition">hello@elevatorschool.org</a>
+                    </div>
+                    <div class="mt-2 flex items-center gap-2 text-sm">
+                        <i data-lucide="phone" class="w-4 h-4 text-accent-blue"></i>
+                        <a href="tel:+18005551234" class="text-gray-400 hover:text-white transition">1-800-ELEVATE</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="border-t border-dark-500 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+                <p class="text-xs text-gray-600">© 2025 Elevator School. All rights reserved. Licensed & Accredited.</p>
+                <div class="flex items-center gap-4 text-xs text-gray-600">
+                    <span class="flex items-center gap-1"><i data-lucide="shield-check"
+                            class="w-3.5 h-3.5 text-accent-green"></i> ACCET Accredited</span>
+                    <span class="flex items-center gap-1"><i data-lucide="badge-check"
+                            class="w-3.5 h-3.5 text-accent-blue"></i> State Licensed</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Toast Container -->
+    <div class="fixed top-20 right-4 z-50 space-y-2" id="toastContainer"></div>
+
+    <script>
+        // ============ LUCIDE ICONS ============
+        lucide.createIcons();
+
+        // ============ MOBILE MENU ============
+        let mobileMenuOpen = false;
+        function toggleMobileMenu() {
+            mobileMenuOpen = !mobileMenuOpen;
+            const overlay = document.getElementById('mobileMenuOverlay');
+            const bg = document.getElementById('mobileMenuBg');
+            const panel = document.getElementById('mobileMenuPanel');
+
+            if (mobileMenuOpen) {
+                overlay.classList.remove('pointer-events-none');
+                bg.classList.remove('opacity-0');
+                bg.classList.add('opacity-100');
+                panel.classList.add('open');
+                document.body.style.overflow = 'hidden';
+            } else {
+                overlay.classList.add('pointer-events-none');
+                bg.classList.add('opacity-0');
+                bg.classList.remove('opacity-100');
+                panel.classList.remove('open');
+                document.body.style.overflow = '';
+            }
+        }
+
+        // ============ FAQ TOGGLE ============
+        function toggleFaq(btn) {
+            const item = btn.closest('.faq-item');
+            const answer = item.querySelector('.faq-answer');
+            const icon = item.querySelector('.faq-icon');
+            const isOpen = !answer.classList.contains('hidden');
+
+            // Close all
+            document.querySelectorAll('.faq-answer').forEach(a => a.classList.add('hidden'));
+            document.querySelectorAll('.faq-icon').forEach(i => i.style.transform = 'rotate(0deg)');
+
+            if (!isOpen) {
+                answer.classList.remove('hidden');
+                icon.style.transform = 'rotate(180deg)';
+            }
+        }
+
+        // ============ FORM HANDLING ============
+        function handleSubmit(e) {
+            e.preventDefault();
+            const btn = document.getElementById('submitBtn');
+            btn.innerHTML = '<span class="inline-block w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></span> <span>Submitting...</span>';
+            btn.disabled = true;
+
+            setTimeout(() => {
+                btn.innerHTML = '<i data-lucide="check-circle" class="w-5 h-5"></i> <span>Application Submitted!</span>';
+                lucide.createIcons({ nodes: [btn] });
+                showToast('🎉 Application submitted! We\'ll be in touch within 24 hours.', 'success');
+
+                setTimeout(() => {
+                    btn.innerHTML = '<span>Submit Application</span><i data-lucide="send" class="w-4 h-4"></i>';
+                    lucide.createIcons({ nodes: [btn] });
+                    btn.disabled = false;
+                    document.getElementById('contactForm').reset();
+                }, 3000);
+            }, 1500);
+        }
+
+        // ============ TOAST ============
+        function showToast(message, type = 'info') {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            const colors = {
+                success: 'bg-accent-green/20 border-accent-green/30 text-accent-green',
+                error: 'bg-accent-red/20 border-accent-red/30 text-accent-red',
+                info: 'bg-accent-blue/20 border-accent-blue/30 text-accent-blue'
+            };
+            toast.className = `${colors[type]} border rounded-xl px-5 py-3 text-sm font-medium backdrop-blur-xl flex items-center gap-2 shadow-2xl`;
+            toast.style.animation = 'fadeIn 0.3s ease';
+            const icons = { success: 'check-circle', error: 'alert-circle', info: 'info' };
+            toast.innerHTML = `<i data-lucide="${icons[type]}" class="w-4 h-4"></i> ${message}`;
+            container.appendChild(toast);
+            lucide.createIcons({ nodes: [toast] });
+
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transition = 'opacity 0.3s';
+                setTimeout(() => toast.remove(), 300);
+            }, 4000);
+        }
+
+        // ============ SCROLL ANIMATIONS ============
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+        document.querySelectorAll('.fade-up, .fade-left, .fade-right').forEach(el => {
+            observer.observe(el);
+        });
+
+        // ============ COUNTER ANIMATION ============
+        const counterObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const el = entry.target;
+                    const target = parseInt(el.dataset.count);
+                    const duration = 2000;
+                    const start = performance.now();
+
+                    function update(now) {
+                        const elapsed = now - start;
+                        const progress = Math.min(elapsed / duration, 1);
+                        const eased = 1 - Math.pow(1 - progress, 3);
+                        const current = Math.round(eased * target);
+                        el.textContent = current.toLocaleString() + (target === 92 ? '%' : '+');
+                        if (progress < 1) requestAnimationFrame(update);
+                    }
+                    requestAnimationFrame(update);
+                    counterObserver.unobserve(el);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        document.querySelectorAll('[data-count]').forEach(el => {
+            counterObserver.observe(el);
+        });
+
+        // ============ SMOOTH SCROLL ============
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(anchor.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // ============ NAV ACTIVE ON SCROLL ============
+        const navLinks = document.querySelectorAll('.nav-link');
+        const sections = document.querySelectorAll('section[id]');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const top = section.offsetTop - 100;
+                if (window.scrollY >= top) {
+                    current = section.getAttribute('id');
+                }
+            });
+            navLinks.forEach(link => {
+                link.classList.toggle('text-white', link.getAttribute('href') === '#' + current);
+                link.classList.toggle('text-gray-400', link.getAttribute('href') !== '#' + current);
+            });
+        });
+    </script>
+</body>
+
+</html>

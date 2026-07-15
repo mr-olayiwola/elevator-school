@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog | Elevator School</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'system-ui', '-apple-system', 'sans-serif'],
+                    },
+                    colors: {
+                        dark: {
+                            950: '#060a12',
+                            900: '#0a0e17',
+                            800: '#0f1523',
+                            700: '#151d2e',
+                            600: '#1a2438',
+                            500: '#222e44',
+                        },
+                        accent: {
+                            green: '#00e676',
+                            blue: '#2962ff',
+                            purple: '#7c3aed',
+                            gold: '#ffc107',
+                            red: '#ff1744',
+                            cyan: '#00bcd4',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            overflow-x: hidden;
+        }
+
+        body {
+            background: #0a0e17;
+            color: #e0e0e0;
+            font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+            line-height: 1.6;
+            letter-spacing: 0.3px;
+        }
+
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #0f1523;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #222e44;
+            border-radius: 3px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #2a3a54;
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #2962ff, #7c3aed, #00e676);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-glow {
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            border-radius: 50%;
+            filter: blur(150px);
+            opacity: 0.15;
+            pointer-events: none;
+        }
+
+        .card-hover {
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .card-hover:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .fade-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .nav-link {
+            position: relative;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #2962ff, #7c3aed);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        h1 {
+            font-size: clamp(2.75rem, 5vw, 4rem);
+            line-height: 1.4;
+            letter-spacing: -0.5px;
+            font-weight: 800;
+            margin-bottom: 1.25rem;
+        }
+
+        h2 {
+            line-height: 1.3;
+            letter-spacing: -0.3px;
+            font-weight: 700;
+        }
+
+        h3 {
+            line-height: 1.4;
+            letter-spacing: 0px;
+            font-weight: 700;
+        }
+
+        h4 {
+            line-height: 1.4;
+            font-weight: 600;
+        }
+
+        p {
+            line-height: 1.7;
+            margin-bottom: 1rem;
+        }
+
+        ul, ol {
+            line-height: 1.8;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        .modal {
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .modal-content {
+            animation: slideUp 0.3s ease;
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header class="sticky top-0 z-50 bg-dark-900/95 backdrop-blur-xl border-b border-dark-500/50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 bg-gradient-to-br from-accent-blue to-accent-purple rounded-xl flex items-center justify-center shadow-lg shadow-accent-blue/20">
+                        <i data-lucide="arrow-up" class="w-5 h-5 text-white"></i>
+                    </div>
+                    <div>
+                        <span class="text-xl font-bold text-white tracking-tight">Elevator<span class="gradient-text">School</span></span>
+                    </div>
+                </div>
+                <nav class="hidden md:flex items-center gap-1">
+                    <a href="elevator.html#home" class="nav-link px-4 py-2 rounded-lg text-sm font-medium text-white hover:bg-dark-600 transition">Home</a>
+                    <a href="programs.html" class="nav-link px-4 py-2 rounded-lg text-sm font-medium text-gray-400 hover:text-white hover:bg-dark-600 transition">Programs</a>
+                    <a href="about.html" class="nav-link px-4 py-2 rounded-lg text-sm font-medium text-gray-400 hover:text-white hover:bg-dark-600 transition">About</a>
+                    <a href="assets.html" class="nav-link px-4 py-2 rounded-lg text-sm font-medium text-gray-400 hover:text-white hover:bg-dark-600 transition">Asset Management</a>
+                    <a href="blog.html" class="nav-link px-4 py-2 rounded-lg text-sm font-medium text-gray-400 hover:text-white hover:bg-dark-600 transition">Blog</a>
+                    <a href="elevator.html#contact" class="nav-link px-4 py-2 rounded-lg text-sm font-medium text-gray-400 hover:text-white hover:bg-dark-600 transition">Contact</a>
+                </nav>
+                <div class="flex items-center gap-3">
+                    <a href="elevator.html#contact" class="hidden sm:inline-flex items-center gap-2 bg-gradient-to-r from-accent-blue to-accent-purple text-white px-5 py-2.5 rounded-xl text-sm font-semibold hover:shadow-lg hover:shadow-accent-blue/20 transition-all active:scale-95">Enroll Now<i data-lucide="arrow-right" class="w-4 h-4"></i></a>
+                    <button class="md:hidden p-2 rounded-lg hover:bg-dark-600 transition" onclick="toggleMobileMenu()">
+                        <i data-lucide="menu" class="w-6 h-6 text-white" id="menuIcon"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="fixed inset-0 z-50 md:hidden pointer-events-none" id="mobileMenuOverlay">
+        <div class="absolute inset-0 bg-black/60 opacity-0 transition-opacity" id="mobileMenuBg" onclick="toggleMobileMenu()"></div>
+        <div class="mobile-menu absolute right-0 top-0 bottom-0 w-72 bg-dark-800 border-l border-dark-500 p-6 pt-20 pointer-events-auto" id="mobileMenuPanel">
+            <button class="absolute top-5 right-5 p-2 rounded-lg hover:bg-dark-600 transition" onclick="toggleMobileMenu()">
+                <i data-lucide="x" class="w-5 h-5 text-gray-400"></i>
+            </button>
+            <div class="flex flex-col gap-1">
+                <a href="elevator.html#home" class="px-4 py-3 rounded-lg text-white font-medium hover:bg-dark-600 transition" onclick="toggleMobileMenu()">Home</a>
+                <a href="programs.html" class="px-4 py-3 rounded-lg text-gray-400 font-medium hover:text-white hover:bg-dark-600 transition" onclick="toggleMobileMenu()">Programs</a>
+                <a href="assets.html" class="px-4 py-3 rounded-lg text-gray-400 font-medium hover:text-white hover:bg-dark-600 transition" onclick="toggleMobileMenu()">Asset Management</a>
+                <a href="blog.html" class="px-4 py-3 rounded-lg text-gray-400 font-medium hover:text-white hover:bg-dark-600 transition" onclick="toggleMobileMenu()">Blog</a>
+                <a href="about.html" class="px-4 py-3 rounded-lg text-gray-400 font-medium hover:text-white hover:bg-dark-600 transition" onclick="toggleMobileMenu()">About</a>
+                <a href="elevator.html#contact" class="px-4 py-3 rounded-lg text-gray-400 font-medium hover:text-white hover:bg-dark-600 transition" onclick="toggleMobileMenu()">Contact</a>
+                <a href="elevator.html#contact" class="mt-4 text-center bg-gradient-to-r from-accent-blue to-accent-purple text-white px-5 py-3 rounded-xl font-semibold" onclick="toggleMobileMenu()">Enroll Now</a>
+            </div>
+        </div>
+    </div>
+
+    <section class="relative min-h-[80vh] flex items-center overflow-hidden pt-16">
+        <div class="hero-glow bg-accent-blue" style="top: -200px; left: -80px;"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-[1.1fr_0.9fr] gap-16 items-center">
+                <div class="fade-up">
+                    <span class="text-xs font-semibold uppercase tracking-widest text-accent-purple mb-4 block">Blog</span>
+                    <h1 class="text-4xl sm:text-5xl font-black text-white leading-tight mb-6">Fresh market insight and career guidance, now locally hosted.</h1>
+                    <p class="text-gray-400 max-w-3xl leading-relaxed mb-8">This blog archive is based on Elevator School's original news library and rebuilt for the new landing experience. Click any article to read in a popup without leaving the page.</p>
+                    <div class="flex flex-wrap gap-4">
+                        <a href="elevator.html#contact" class="inline-flex items-center gap-2 bg-gradient-to-r from-accent-blue to-accent-purple text-white px-6 py-4 rounded-full font-semibold hover:shadow-xl hover:shadow-accent-blue/25 transition-all">Reach Admissions</a>
+                        <a href="programs.html" class="inline-flex items-center gap-2 border border-dark-500 text-gray-200 px-6 py-4 rounded-full hover:border-accent-blue transition-all">View Programs</a>
+                    </div>
+                </div>
+                <div class="rounded-[2rem] overflow-hidden border border-dark-500 bg-dark-800 shadow-2xl shadow-blue-500/5 fade-left p-8">
+                    <div class="space-y-4">
+                        <div class="rounded-3xl bg-dark-900 border border-dark-500 p-6">
+                            <div class="text-xs uppercase tracking-widest text-gray-500 mb-3">Featured</div>
+                            <div class="text-white font-semibold text-2xl">Trading strategies, market updates, and product thinking.</div>
+                        </div>
+                        <div class="rounded-3xl bg-dark-900 border border-dark-500 p-6">
+                            <div class="text-xs uppercase tracking-widest text-gray-500 mb-3">Update</div>
+                            <div class="text-white font-semibold text-2xl">Click articles to open as popups—no page redirects.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-24">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <article class="bg-dark-800 border border-dark-500 rounded-3xl p-8 card-hover fade-up" onclick="openModal('modal-1')">
+                    <span class="text-[10px] uppercase tracking-widest text-accent-blue bg-accent-blue/10 px-2 py-1 rounded-full">May 15, 2026</span>
+                    <h2 class="text-2xl font-bold text-white mt-5 mb-3">Introducing Elevator: here are 5 economic opportunities Nigerians can leverage in 2026.</h2>
+                    <p class="text-gray-400 leading-relaxed">Economic opportunities are not far-fetched. The Nigerian job market is changing.</p>
+                    <a href="#" class="inline-flex items-center gap-2 mt-6 text-accent-blue font-semibold hover:text-white" onclick="event.preventDefault(); openModal('modal-1')">Read more <i data-lucide="arrow-right" class="w-4 h-4"></i></a>
+                </article>
+                <article class="bg-dark-800 border border-dark-500 rounded-3xl p-8 card-hover fade-up" style="transition-delay: 0.05s;" onclick="openModal('modal-2')">
+                    <span class="text-[10px] uppercase tracking-widest text-accent-green bg-accent-green/10 px-2 py-1 rounded-full">April 28, 2026</span>
+                    <h2 class="text-2xl font-bold text-white mt-5 mb-3">What is product marketing and why Nigerian professionals need it now</h2>
+                    <p class="text-gray-400 leading-relaxed">As much as your product or service is great, it will struggle without the right positioning.</p>
+                    <a href="#" class="inline-flex items-center gap-2 mt-6 text-accent-blue font-semibold hover:text-white" onclick="event.preventDefault(); openModal('modal-2')">Read more <i data-lucide="arrow-right" class="w-4 h-4"></i></a>
+                </article>
+                <article class="bg-dark-800 border border-dark-500 rounded-3xl p-8 card-hover fade-up" style="transition-delay: 0.1s;" onclick="openModal('modal-3')">
+                    <span class="text-[10px] uppercase tracking-widest text-accent-gold bg-accent-gold/10 px-2 py-1 rounded-full">April 21, 2026</span>
+                    <h2 class="text-2xl font-bold text-white mt-5 mb-3">5 ways to make Q2 count (and the skills that will get you there)</h2>
+                    <p class="text-gray-400 leading-relaxed">If you think Q2 is almost over, then you're almost correct.</p>
+                    <a href="#" class="inline-flex items-center gap-2 mt-6 text-accent-blue font-semibold hover:text-white" onclick="event.preventDefault(); openModal('modal-3')">Read more <i data-lucide="arrow-right" class="w-4 h-4"></i></a>
+                </article>
+                <article class="bg-dark-800 border border-dark-500 rounded-3xl p-8 card-hover fade-up" style="transition-delay: 0.15s;" onclick="openModal('modal-4')">
+                    <span class="text-[10px] uppercase tracking-widest text-accent-red bg-accent-red/10 px-2 py-1 rounded-full">April 14, 2026</span>
+                    <h2 class="text-2xl font-bold text-white mt-5 mb-3">Coca-Cola is not the best cola. so why does it always win?</h2>
+                    <p class="text-gray-400 leading-relaxed">In blind taste tests, Pepsi consistently beats Coca-Cola. Participants prefer the taste.</p>
+                    <a href="#" class="inline-flex items-center gap-2 mt-6 text-accent-blue font-semibold hover:text-white" onclick="event.preventDefault(); openModal('modal-4')">Read more <i data-lucide="arrow-right" class="w-4 h-4"></i></a>
+                </article>
+                <article class="bg-dark-800 border border-dark-500 rounded-3xl p-8 card-hover fade-up" style="transition-delay: 0.2s;" onclick="openModal('modal-5')">
+                    <span class="text-[10px] uppercase tracking-widest text-accent-cyan bg-accent-cyan/10 px-2 py-1 rounded-full">April 8, 2026</span>
+                    <h2 class="text-2xl font-bold text-white mt-5 mb-3">Beginner guide to forex trading in 2026</h2>
+                    <p class="text-gray-400 leading-relaxed">Every professional Forex trader was once exactly where you are right now.</p>
+                    <a href="#" class="inline-flex items-center gap-2 mt-6 text-accent-blue font-semibold hover:text-white" onclick="event.preventDefault(); openModal('modal-5')">Read more <i data-lucide="arrow-right" class="w-4 h-4"></i></a>
+                </article>
+                <article class="bg-dark-800 border border-dark-500 rounded-3xl p-8 card-hover fade-up" style="transition-delay: 0.25s;" onclick="openModal('modal-6')">
+                    <span class="text-[10px] uppercase tracking-widest text-accent-blue bg-accent-blue/10 px-2 py-1 rounded-full">April 1, 2026</span>
+                    <h2 class="text-2xl font-bold text-white mt-5 mb-3">Forex terms every beginner gets wrong, and what they actually mean</h2>
+                    <p class="text-gray-400 leading-relaxed">Clarify the jargon that can trip up new traders and avoid common misunderstandings before you trade.</p>
+                    <a href="#" class="inline-flex items-center gap-2 mt-6 text-accent-blue font-semibold hover:text-white" onclick="event.preventDefault(); openModal('modal-6')">Read more <i data-lucide="arrow-right" class="w-4 h-4"></i></a>
+                </article>
+            </div>
+            <div class="text-center mt-10 fade-up">
+                <p class="text-gray-400 max-w-2xl mx-auto">This blog archive is fully hosted as part of the Elevator School landing experience.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal 1: 5 Economic Opportunities -->
+    <div id="modal-1" class="modal fixed inset-0 z-50 hidden bg-black/80 flex items-center justify-center p-4 backdrop-blur-sm overflow-y-auto" onclick="closeModal(event)">
+        <div class="modal-content bg-dark-800 border border-dark-500 rounded-3xl max-w-3xl w-full my-8 relative" onclick="event.stopPropagation()">
+            <button onclick="closeModal()" class="sticky top-0 right-0 p-4 z-10 float-right text-gray-400 hover:text-white transition bg-dark-800 rounded-full">
+                <i data-lucide="x" class="w-6 h-6"></i>
+            </button>
+            <div class="p-8 pt-6">
+                <span class="text-[10px] uppercase tracking-widest text-accent-blue bg-accent-blue/10 px-2 py-1 rounded-full">May 15, 2026</span>
+                <h1 class="text-4xl font-bold text-white mt-5 mb-4">Introducing Elevator: Here Are 5 Economic Opportunities Nigerians Can Leverage In 2026</h1>
+                <p class="text-gray-400 mb-6">Economic opportunities are not far-fetched. The Nigerian job market is changing fast. Degrees alone are no longer enough. The people building wealth in 2026 are those with digital, technical, and high-income skills.</p>
+                
+                <div class="space-y-6 text-gray-300">
+                    <div>
+                        <h3 class="text-xl font-bold text-white mb-3">Course One: CFDs & Market Analysis</h3>
+                        <p>A Contract for Difference, or CFD, is a financial instrument that allows you to trade the price movement of an asset without actually owning it. This means you can profit from rising and falling markets across stocks, indices, commodities, currencies, and crypto currencies, all from a single trading account. Our CFD trading program takes you from complete beginner to a structured, confident trader with a real system behind every decision.</p>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-white mb-3">Course 2: Product Marketing</h3>
+                        <p>Product marketing is the skill of positioning a product, crafting its message, and taking it to the right audience in a way that drives awareness, trust, and consistent sales. It sits at the intersection of strategy, psychology, and storytelling, and it is one of the most in-demand and highest-paid skills in the global tech and business ecosystem.</p>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-white mb-3">Course 3: AI & Data Science</h3>
+                        <p>Data is the new oil. And the ability to extract meaning from it is one of the most powerful and profitable skills of the 21st century. Data science involves collecting, analyzing, and interpreting large sets of data to help businesses make smarter decisions. Our program introduces you to the tools, techniques, and thinking frameworks that turn raw numbers into actionable insights.</p>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-white mb-3">Course 4: Cybersecurity</h3>
+                        <p>As Nigeria's digital economy grows, so does its vulnerability to cyber threats. Cybersecurity involves protecting systems, networks, and data from digital attacks. It covers ethical hacking, network security, risk assessment, and incident response. The demand is high, but the supply of qualified professionals is low, and the salaries reflect that gap.</p>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-white mb-3">Course 5: DeFi & Cryptocurrency Trading</h3>
+                        <p>Cryptocurrency is no longer a fringe conversation. It is a legitimate and rapidly growing asset class. Our cryptocurrency trading program teaches you how to navigate the crypto market with discipline and strategy. You will learn how to analyze crypto assets, manage risk in a highly volatile market, and identify trading opportunities.</p>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-white mb-3">Why Elevator?</h3>
+                        <p>What makes Elevator different is not just what we teach. Every program is delivered by practitioners who are active in their fields. Our mentorship model means you are never learning in isolation. You have access to experienced guides, a community of peers, and the kind of accountability that accelerates growth. We remove every barrier between you and the skill that will change your financial story.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 2: Product Marketing -->
+    <div id="modal-2" class="modal fixed inset-0 z-50 hidden bg-black/80 flex items-center justify-center p-4 backdrop-blur-sm overflow-y-auto" onclick="closeModal(event)">
+        <div class="modal-content bg-dark-800 border border-dark-500 rounded-3xl max-w-3xl w-full my-8 relative" onclick="event.stopPropagation()">
+            <button onclick="closeModal()" class="sticky top-0 right-0 p-4 z-10 float-right text-gray-400 hover:text-white transition bg-dark-800 rounded-full">
+                <i data-lucide="x" class="w-6 h-6"></i>
+            </button>
+            <div class="p-8 pt-6">
+                <span class="text-[10px] uppercase tracking-widest text-accent-green bg-accent-green/10 px-2 py-1 rounded-full">April 28, 2026</span>
+                <h1 class="text-4xl font-bold text-white mt-5 mb-4">What Is Product Marketing And Why Nigerian Professionals Need It Now</h1>
+                <p class="text-gray-400 mb-6">As much as your product or service is great, it will not last long in the market if it lacks this one thing: product marketing. You can have the most innovative solution, the best quality, and the most competitive price. But if the right people do not know it exists, your product will struggle to survive.</p>
+                
+                <div class="space-y-6 text-gray-300">
+                    <div>
+                        <h3 class="text-xl font-bold text-white mb-3">What Product Marketing Actually Is</h3>
+                        <p>Product marketing is the process of introducing and driving awareness of a product or service to consumers. It covers product positioning, messaging, and launching the product to the right audience at the right time in the right way. It sits at the intersection of three critical teams: product managers, sales teams, and product developers. Product marketing is the bridge that connects all three.</p>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-white mb-3">The Six Key Aspects of Product Marketing</h3>
+                        <ul class="list-disc list-inside space-y-3">
+                            <li><strong>Product Positioning and Messaging:</strong> Positioning defines where your product sits relative to competitors. Messaging communicates that position to your audience.</li>
+                            <li><strong>Go-to-Market Strategy:</strong> A detailed plan for how a product will reach its target audience, covering launch timing, pricing, and distribution channels.</li>
+                            <li><strong>Customer Insights and Segmentation:</strong> Understanding your customer deeply so messaging speaks directly to the right person at the right moment.</li>
+                            <li><strong>Product Market Fit:</strong> The degree to which your product satisfies a strong market demand.</li>
+                            <li><strong>Iteration and Research:</strong> Continuous research, testing, and refinement to stay relevant.</li>
+                            <li><strong>Metrics and Tracking:</strong> Data that separates strategic marketing decisions from emotional ones.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-white mb-3">Why Nigerian Professionals Need Product Marketing Right Now</h3>
+                        <p>Nigeria's economy is competitive and increasingly digital. In this environment, product marketing is not a luxury skill. It is a survival skill. Whether you are a business owner who wants to grow your brand, a marketing professional who wants to add strategic depth to your skill set, or a beginner who wants to build a career in one of the most exciting fields in the modern economy, product marketing is where you need to be.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 3: Q2 Count -->
+    <div id="modal-3" class="modal fixed inset-0 z-50 hidden bg-black/80 flex items-center justify-center p-4 backdrop-blur-sm overflow-y-auto" onclick="closeModal(event)">
+        <div class="modal-content bg-dark-800 border border-dark-500 rounded-3xl max-w-3xl w-full my-8 relative" onclick="event.stopPropagation()">
+            <button onclick="closeModal()" class="sticky top-0 right-0 p-4 z-10 float-right text-gray-400 hover:text-white transition bg-dark-800 rounded-full">
+                <i data-lucide="x" class="w-6 h-6"></i>
+            </button>
+            <div class="p-8 pt-6">
+                <span class="text-[10px] uppercase tracking-widest text-accent-gold bg-accent-gold/10 px-2 py-1 rounded-full">April 21, 2026</span>
+                <h1 class="text-4xl font-bold text-white mt-5 mb-4">5 Ways To Make Q2 Count (And The Skills That Will Get You There)</h1>
+                <p class="text-gray-400 mb-6">If you think Q2 is almost over, then you're almost correct. The question now is: does your current state align with the Q2 goals you set for yourself? Let's discuss how you can make Q2 count through your Skill Economy.</p>
+                
+                <div class="space-y-6 text-gray-300">
+                    <div>
+                        <h3 class="text-xl font-bold text-white mb-3">Find The Skill That Fits Your Wiring</h3>
+                        <ul class="list-disc list-inside space-y-2">
+                            <li><strong>Forex Trading:</strong> If you are analytical, patient, and comfortable making decisions under pressure.</li>
+                            <li><strong>Product Marketing:</strong> If you are creative and strategic, and naturally know how to frame ideas and make things compelling.</li>
+                            <li><strong>Data Science:</strong> If you love asking questions and finding answers in numbers.</li>
+                            <li><strong>Cybersecurity:</strong> If you are a problem solver who thinks like an attacker and protects like a defender.</li>
+                            <li><strong>AI & Prompt Engineering:</strong> If you are a fast thinker who loves experimenting with tools and technology.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-white mb-3">5 Ways To Make Q2 Count</h3>
+                        <ol class="list-decimal list-inside space-y-2">
+                            <li><strong>Audit Q1 Honestly:</strong> Where did you stall? What did you avoid? The honest answer points directly at the skill you need to address.</li>
+                            <li><strong>Choose One Skill and Go Deep:</strong> Resist the temptation to start multiple things. Pick one skill aligned with how you're wired and go deep.</li>
+                            <li><strong>Find Your Environment:</strong> You cannot build a high-income skill in a low-energy environment. Join a community of ambitious people.</li>
+                            <li><strong>Learn With Structure:</strong> There is a difference between knowing about something and knowing how to execute it. Structured learning closes that gap faster.</li>
+                            <li><strong>Invest Before the Year Runs Away:</strong> Q3 will arrive faster than you expect. Make intentional moves now, in Q2.</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 4: Coca-Cola Marketing -->
+    <div id="modal-4" class="modal fixed inset-0 z-50 hidden bg-black/80 flex items-center justify-center p-4 backdrop-blur-sm overflow-y-auto" onclick="closeModal(event)">
+        <div class="modal-content bg-dark-800 border border-dark-500 rounded-3xl max-w-3xl w-full my-8 relative" onclick="event.stopPropagation()">
+            <button onclick="closeModal()" class="sticky top-0 right-0 p-4 z-10 float-right text-gray-400 hover:text-white transition bg-dark-800 rounded-full">
+                <i data-lucide="x" class="w-6 h-6"></i>
+            </button>
+            <div class="p-8 pt-6">
+                <span class="text-[10px] uppercase tracking-widest text-accent-red bg-accent-red/10 px-2 py-1 rounded-full">April 14, 2026</span>
+                <h1 class="text-4xl font-bold text-white mt-5 mb-4">Coca-Cola Is Not The Best Cola. So Why Does It Always Win?</h1>
+                <p class="text-gray-400 mb-6">In blind taste tests, Pepsi consistently beats Coca-Cola. Participants prefer the taste. And yet Coca-Cola has dominated the global beverage market for over a century. If the product is not the reason, what is? The answer is product marketing.</p>
+                
+                <div class="space-y-6 text-gray-300">
+                    <div>
+                        <h3 class="text-xl font-bold text-white mb-3">It Was Never Really About the Drink</h3>
+                        <p>Coca-Cola does not sell a beverage. It sells a feeling: Happiness, Togetherness, Celebration. The red can is not just packaging, it is a signal. A promise. A memory trigger that activates something emotional before the first sip is ever taken. This is the result of decades of deliberate, disciplined product marketing strategy.</p>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-white mb-3">The Product Marketing Strategy Behind The World's Most Recognized Brand</h3>
+                        <ul class="list-disc list-inside space-y-3">
+                            <li><strong>Consistent Identity:</strong> Coca-Cola's red and white color scheme, signature font, and iconic bottle have remained virtually unchanged for decades. Consistency builds trust.</li>
+                            <li><strong>Emotional Positioning:</strong> Coca-Cola does not market features. It markets feelings. "Open Happiness." "Taste the Feeling." Each campaign is an emotional invitation.</li>
+                            <li><strong>Mass Personalization:</strong> The "Share a Coke" campaign turned a mass-produced beverage into something personal. Millions felt seen.</li>
+                            <li><strong>Cultural Integration:</strong> Coca-Cola finds a way to belong in cultural moments. Christmas. The World Cup. Graduation season.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-white mb-3">What Nigerian Brands Can Learn From This</h3>
+                        <p>Nigeria has incredible products. But quality alone does not build dominant brands. The brands that will define Nigeria's next decade of commerce are not necessarily the ones with the best products. They are the ones with the best product marketers behind them. Understanding positioning, messaging, audience psychology, and brand storytelling is what turns a good product into a movement.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 5: Forex Beginner Guide -->
+    <div id="modal-5" class="modal fixed inset-0 z-50 hidden bg-black/80 flex items-center justify-center p-4 backdrop-blur-sm overflow-y-auto" onclick="closeModal(event)">
+        <div class="modal-content bg-dark-800 border border-dark-500 rounded-3xl max-w-3xl w-full my-8 relative" onclick="event.stopPropagation()">
+            <button onclick="closeModal()" class="sticky top-0 right-0 p-4 z-10 float-right text-gray-400 hover:text-white transition bg-dark-800 rounded-full">
+                <i data-lucide="x" class="w-6 h-6"></i>
+            </button>
+            <div class="p-8 pt-6">
+                <span class="text-[10px] uppercase tracking-widest text-accent-cyan bg-accent-cyan/10 px-2 py-1 rounded-full">April 8, 2026</span>
+                <h1 class="text-4xl font-bold text-white mt-5 mb-4">Beginner Guide to Forex Trading in 2026</h1>
+                <p class="text-gray-400 mb-6">Every professional Forex trader was once exactly where you are right now. The difference between traders who figured it out and the ones who gave up is not intelligence or luck. It is structure.</p>
+                
+                <div class="space-y-6 text-gray-300">
+                    <div>
+                        <h3 class="text-xl font-bold text-white mb-3">What Is Forex Trading And How Does It Work?</h3>
+                        <p>Forex, short for foreign exchange, is the global market where currencies are bought and sold. It is the largest financial market in the world, with over seven trillion dollars traded every single day. Unlike the stock market, Forex operates 24 hours a day, five days a week, across financial centers globally. When you trade Forex, you are simultaneously buying one currency and selling another.</p>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-white mb-3">What Every Forex Trading Beginner Needs To Know</h3>
+                        <ul class="list-disc list-inside space-y-2">
+                            <li><strong>Pips:</strong> The smallest unit of price movement. Understanding pip value tells you how much you are gaining or losing per move.</li>
+                            <li><strong>Leverage:</strong> Borrowed capital allowing you to control a larger position. Used without discipline, it destroys accounts fast.</li>
+                            <li><strong>Lot Size:</strong> The standardized unit of trade size. Your lot size determines how much money you make or lose per pip.</li>
+                            <li><strong>Stop Loss:</strong> A predetermined exit point that closes your trade automatically if price moves against you.</li>
+                            <li><strong>Take Profit:</strong> The price level at which your trade closes automatically once it hits your target.</li>
+                            <li><strong>Risk to Reward Ratio:</strong> The relationship between how much you risk versus how much you stand to gain.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-white mb-3">The Biggest Mistakes Forex Trading Beginners Make</h3>
+                        <ul class="list-disc list-inside space-y-2">
+                            <li><strong>Trading without a plan:</strong> Entering a trade without knowing your entry criteria and stop loss level is gambling.</li>
+                            <li><strong>Overleveraging:</strong> Using high leverage on a small account is the number one account killer for beginners.</li>
+                            <li><strong>Chasing losses:</strong> Taking another trade immediately after a loss almost always makes things worse.</li>
+                            <li><strong>Ignoring risk management:</strong> Skipping stop losses and risking too much per trade are account killers.</li>
+                            <li><strong>Learning without structure:</strong> Piecing together random YouTube videos is a recipe for confusion.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 6: Forex Terms -->
+    <div id="modal-6" class="modal fixed inset-0 z-50 hidden bg-black/80 flex items-center justify-center p-4 backdrop-blur-sm overflow-y-auto" onclick="closeModal(event)">
+        <div class="modal-content bg-dark-800 border border-dark-500 rounded-3xl max-w-3xl w-full my-8 relative" onclick="event.stopPropagation()">
+            <button onclick="closeModal()" class="sticky top-0 right-0 p-4 z-10 float-right text-gray-400 hover:text-white transition bg-dark-800 rounded-full">
+                <i data-lucide="x" class="w-6 h-6"></i>
+            </button>
+            <div class="p-8 pt-6">
+                <span class="text-[10px] uppercase tracking-widest text-accent-blue bg-accent-blue/10 px-2 py-1 rounded-full">April 1, 2026</span>
+                <h1 class="text-4xl font-bold text-white mt-5 mb-4">Forex Terms Every Beginner Gets Wrong, And What They Actually Mean</h1>
+                <p class="text-gray-400 mb-6">Every Forex trading beginner has been there. You open a chart and within minutes someone is throwing around words like pip, leverage, lot size, and stop loss. This is not just academic. It is the foundation of every decision you will make in the market.</p>
+                
+                <div class="space-y-6 text-gray-300">
+                    <div>
+                        <h3 class="text-xl font-bold text-white mb-3">What Beginners Get Wrong About Pips</h3>
+                        <p><strong>What most beginners think:</strong> A pip is just a small price movement.</p>
+                        <p><strong>What it actually means:</strong> A pip (percentage in point) is the smallest standardized unit of price movement. For most currency pairs, one pip equals 0.0001 in price.</p>
+                        <p><strong>Why it matters:</strong> The monetary value of a pip depends on your lot size, your account currency, and the pair you are trading. A trader who does not understand pip value cannot accurately calculate risk.</p>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-white mb-3">What Beginners Get Wrong About Leverage</h3>
+                        <p><strong>What most beginners think:</strong> Leverage is free money the broker gives you. The higher the leverage, the better.</p>
+                        <p><strong>What it actually means:</strong> Leverage is borrowed capital that allows you to control a larger position than your account balance would permit.</p>
+                        <p><strong>Why it matters:</strong> Yes, it amplifies your potential profit. But it amplifies your potential loss by exactly the same degree. In the hands of an undisciplined beginner, it makes account destruction faster.</p>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-white mb-3">What Beginners Get Wrong About Stop Loss</h3>
+                        <p><strong>What most beginners think:</strong> A stop loss is optional. It is for traders who are not confident.</p>
+                        <p><strong>What it actually means:</strong> A stop loss is a predetermined price level at which your trade automatically closes to prevent further loss.</p>
+                        <p><strong>Why it matters:</strong> Every professional trader uses a stop loss. It protects your capital and ability to keep trading. Without it, one bad trade can wipe out weeks of progress.</p>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-white mb-3">What Beginners Get Wrong About Lot Size</h3>
+                        <p><strong>What most beginners think:</strong> Lot size is just how big your trade is. Bigger is better.</p>
+                        <p><strong>What it actually means:</strong> A lot is the standardized unit of measurement for trade size. A standard lot is 100,000 units, a mini lot is 10,000, a micro lot is 1,000.</p>
+                        <p><strong>Why it matters:</strong> Lot size is where most beginners do the most damage. Trading a lot size too large means even a small move against you results in significant loss. This affects your ability to stay in the game long enough to become profitable.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-dark-800 border-t border-dark-500 pt-16 pb-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
+                <div>
+                    <div class="flex items-center gap-2 mb-4">
+                        <div class="w-9 h-9 bg-gradient-to-br from-accent-blue to-accent-purple rounded-xl flex items-center justify-center">
+                            <i data-lucide="arrow-up" class="w-4 h-4 text-white"></i>
+                        </div>
+                        <span class="text-lg font-bold text-white">Elevator<span class="gradient-text">School</span></span>
+                    </div>
+                    <p class="text-sm text-gray-500 mb-4 leading-relaxed">Insights for traders and tech professionals who want actionable learning.</p>
+                    <div class="flex flex-wrap items-center gap-3">
+                        <a href="https://www.instagram.com/iamdavidachom/?hl=en" target="_blank" rel="noopener" class="inline-flex items-center gap-2 rounded-full border border-dark-500 bg-dark-700 px-4 py-2 text-sm text-gray-300 hover:border-accent-pink hover:text-white transition">
+                            <img src="IG.png" alt="Instagram" class="w-4 h-4" />
+                            Instagram
+                        </a>
+                        <a href="https://x.com/iamdavidachom" target="_blank" rel="noopener" class="inline-flex items-center gap-2 rounded-full border border-dark-500 bg-dark-700 px-4 py-2 text-sm text-gray-300 hover:border-accent-blue hover:text-white transition">
+                            <img src="X.png" alt="X" class="w-4 h-4" />
+                            X
+                        </a>
+                        <a href="https://ng.linkedin.com/in/iamdavidachom" target="_blank" rel="noopener" class="inline-flex items-center gap-2 rounded-full border border-dark-500 bg-dark-700 px-4 py-2 text-sm text-gray-300 hover:border-accent-blue hover:text-white transition">
+                            <img src="Linkedin.png" alt="LinkedIn" class="w-4 h-4" />
+                            LinkedIn
+                        </a>
+                        <a href="https://www.youtube.com/channel/UCqyW9E5vf_zBdNvhYBWWbVg/videos" target="_blank" rel="noopener" class="inline-flex items-center gap-2 rounded-full border border-dark-500 bg-dark-700 px-4 py-2 text-sm text-gray-300 hover:border-accent-red hover:text-white transition">
+                            <img src="Youtube.png" alt="YouTube" class="w-4 h-4" />
+                            YouTube
+                        </a>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="text-white font-semibold mb-4">Pages</h4>
+                    <ul class="space-y-2.5 text-sm">
+                        <li><a href="elevator.html#home" class="text-gray-500 hover:text-white transition">Home</a></li>
+                        <li><a href="programs.html" class="text-gray-500 hover:text-white transition">Programs</a></li>
+                        <li><a href="about.html" class="text-gray-500 hover:text-white transition">About</a></li>
+                        <li><a href="blog.html" class="text-gray-500 hover:text-white transition">Blog</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-semibold mb-4">Contact</h4>
+                    <ul class="space-y-2.5 text-sm">
+                        <li><a href="mailto:hello@elevatorschool.org" class="text-gray-500 hover:text-white transition">hello@elevatorschool.org</a></li>
+                        <li><a href="tel:+18005551234" class="text-gray-500 hover:text-white transition">1-800-ELEVATE</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-semibold mb-4">Legal</h4>
+                    <ul class="space-y-2.5 text-sm">
+                        <li><a href="#" class="text-gray-500 hover:text-white transition">Privacy Policy</a></li>
+                        <li><a href="#" class="text-gray-500 hover:text-white transition">Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-dark-500 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+                <p class="text-xs text-gray-600">© 2025 Elevator School. All rights reserved.</p>
+                <div class="flex items-center gap-4 text-xs text-gray-600">
+                    <span class="flex items-center gap-1"><i data-lucide="shield-check" class="w-3.5 h-3.5 text-accent-green"></i> ACCET Accredited</span>
+                    <span class="flex items-center gap-1"><i data-lucide="badge-check" class="w-3.5 h-3.5 text-accent-blue"></i> State Licensed</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+        
+        let mobileMenuOpen = false;
+        function toggleMobileMenu() {
+            mobileMenuOpen = !mobileMenuOpen;
+            const overlay = document.getElementById('mobileMenuOverlay');
+            const bg = document.getElementById('mobileMenuBg');
+            const panel = document.getElementById('mobileMenuPanel');
+            if (mobileMenuOpen) {
+                overlay.classList.remove('pointer-events-none');
+                bg.classList.remove('opacity-0');
+                bg.classList.add('opacity-100');
+                panel.classList.add('open');
+                document.body.style.overflow = 'hidden';
+            } else {
+                overlay.classList.add('pointer-events-none');
+                bg.classList.add('opacity-0');
+                bg.classList.remove('opacity-100');
+                panel.classList.remove('open');
+                document.body.style.overflow = '';
+            }
+        }
+
+        function openModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+                lucide.createIcons();
+            }
+        }
+
+        function closeModal(event) {
+            let modal;
+            if (event && event.target) {
+                modal = event.target.closest('.modal');
+            } else {
+                // Find the modal that's currently open
+                modal = document.querySelector('.modal:not(.hidden)');
+            }
+            
+            if (modal) {
+                modal.classList.add('hidden');
+                document.body.style.overflow = '';
+            }
+        }
+
+        // Close modal when clicking outside of content
+        document.addEventListener('click', function(event) {
+            if (event.target.classList.contains('modal')) {
+                closeModal(event);
+            }
+        });
+
+        // Close modal on Escape key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                const openModal = document.querySelector('.modal:not(.hidden)');
+                if (openModal) {
+                    closeModal();
+                }
+            }
+        });
+
+        // Fade up animation on scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+        
+        document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+    </script>
+</body>
+
+</html>
