@@ -1509,37 +1509,58 @@
             const overlay = document.getElementById('mobileMenuOverlay');
             const bg = document.getElementById('mobileMenuBg');
             const panel = document.getElementById('mobileMenuPanel');
-            overlay.classList.add('pointer-events-none');
-            bg.classList.add('opacity-0');
-            bg.classList.remove('opacity-100');
-            panel.classList.remove('open');
+            if (overlay) overlay.classList.add('pointer-events-none');
+            if (bg) {
+                bg.classList.add('opacity-0');
+                bg.classList.remove('opacity-100');
+            }
+            if (panel) panel.classList.remove('open');
             document.body.style.overflow = '';
         }
         
         function toggleMobileMenu() {
-            mobileMenuOpen = !mobileMenuOpen;
             const overlay = document.getElementById('mobileMenuOverlay');
             const bg = document.getElementById('mobileMenuBg');
             const panel = document.getElementById('mobileMenuPanel');
-
-            if (mobileMenuOpen) {
-                overlay.classList.remove('pointer-events-none');
-                bg.classList.remove('opacity-0');
-                bg.classList.add('opacity-100');
-                panel.classList.add('open');
+            
+            if (!mobileMenuOpen) {
+                // Opening menu
+                mobileMenuOpen = true;
+                if (overlay) overlay.classList.remove('pointer-events-none');
+                if (bg) {
+                    bg.classList.remove('opacity-0');
+                    bg.classList.add('opacity-100');
+                }
+                if (panel) panel.classList.add('open');
                 document.body.style.overflow = 'hidden';
             } else {
+                // Closing menu
                 closeMobileMenu();
             }
         }
         
-        // Close menu on page load
-        window.addEventListener('load', closeMobileMenu);
+        // Ensure menu is closed on page load and unload
+        function initializeMobileMenu() {
+            closeMobileMenu();
+            // Attach click handlers to all nav links for immediate close
+            const menuLinks = document.querySelectorAll('#mobileMenuPanel a');
+            menuLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    // Close menu immediately without waiting
+                    closeMobileMenu();
+                });
+            });
+        }
         
-        // Close menu when clicking nav links
-        document.querySelectorAll('#mobileMenuPanel a').forEach(link => {
-            link.addEventListener('click', closeMobileMenu);
-        });
+        // Initialize on both DOMContentLoaded and load events
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initializeMobileMenu);
+        } else {
+            initializeMobileMenu();
+        }
+        window.addEventListener('load', closeMobileMenu);
+        // Also close on beforeunload to ensure clean state
+        window.addEventListener('beforeunload', closeMobileMenu);
 
         // ============ FAQ TOGGLE ============
         function toggleFaq(btn) {
