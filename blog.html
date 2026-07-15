@@ -621,11 +621,25 @@
         lucide.createIcons();
         
         let mobileMenuOpen = false;
+        
+        function closeMobileMenu() {
+            mobileMenuOpen = false;
+            const overlay = document.getElementById('mobileMenuOverlay');
+            const bg = document.getElementById('mobileMenuBg');
+            const panel = document.getElementById('mobileMenuPanel');
+            overlay.classList.add('pointer-events-none');
+            bg.classList.add('opacity-0');
+            bg.classList.remove('opacity-100');
+            panel.classList.remove('open');
+            document.body.style.overflow = '';
+        }
+        
         function toggleMobileMenu() {
             mobileMenuOpen = !mobileMenuOpen;
             const overlay = document.getElementById('mobileMenuOverlay');
             const bg = document.getElementById('mobileMenuBg');
             const panel = document.getElementById('mobileMenuPanel');
+
             if (mobileMenuOpen) {
                 overlay.classList.remove('pointer-events-none');
                 bg.classList.remove('opacity-0');
@@ -633,13 +647,17 @@
                 panel.classList.add('open');
                 document.body.style.overflow = 'hidden';
             } else {
-                overlay.classList.add('pointer-events-none');
-                bg.classList.add('opacity-0');
-                bg.classList.remove('opacity-100');
-                panel.classList.remove('open');
-                document.body.style.overflow = '';
+                closeMobileMenu();
             }
         }
+        
+        // Close menu on page load
+        window.addEventListener('load', closeMobileMenu);
+        
+        // Close menu when clicking nav links
+        document.querySelectorAll('#mobileMenuPanel a').forEach(link => {
+            link.addEventListener('click', closeMobileMenu);
+        });
 
         function openModal(modalId) {
             const modal = document.getElementById(modalId);
